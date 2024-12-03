@@ -1,6 +1,6 @@
 <div>
     <div class="p-12 bg-black ">
-        <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 footer text-orange-400">
+        <footer class="max-w-7xl mx-auto px-4 pb-4 sm:px-6 lg:px-8 footer text-orange-400">
             <nav>
                 <h6 class="footer-title">THE RESORT</h6>
                 <a class="link link-hover">About Us</a>
@@ -52,5 +52,16 @@
                 </div>
             </nav>
         </footer>
+        <div class="pt-6 border-t bg-black border-orange-400">
+            <div class="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-center">
+                <div>
+                    <x-application-logo class="block h-9 w-auto fill-current text-orange-400" />
+                </div>
+                <div class="cpyright text-orange-400">
+                    © All Rights Reserved. Terracotta Hotel & Resort Dalat - Website by Seven Media
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
