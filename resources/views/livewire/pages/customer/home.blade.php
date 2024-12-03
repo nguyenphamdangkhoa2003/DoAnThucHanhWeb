@@ -1,9 +1,9 @@
 <x-app-layout>
+    @section('content')
     @livewire('layout/customer/header-slide')
 
     <div class="py-12">
         <div class="bg-white">
-
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section aria-labelledby="products-heading" class="pb-10 pt-6">
 
@@ -320,5 +320,8 @@
             </div>
         </div>
     </div>
+    @endsection
+
+
     @livewire('layout/customer/footer')
 </x-app-layout>

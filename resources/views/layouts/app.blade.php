@@ -30,9 +30,12 @@
         @endif
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <div>
+            @yield('content')
+        </div>
+
+        @livewire('layout/customer/footer')
+
     </div>
 </body>
 

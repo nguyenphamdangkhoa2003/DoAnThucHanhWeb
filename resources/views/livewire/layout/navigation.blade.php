@@ -33,13 +33,13 @@ new class extends Component
                     <x-nav-link class=" text-black" :href="route('home')" :active="request()->routeIs('home')" wire:navigate>
                         {{ __('Availability') }}
                     </x-nav-link>
-                    <x-nav-link class=" text-black">
+                    <x-nav-link class=" text-black" :href="route('about')" :active="request()->routeIs('about')" wire:navigate>
                             {{ __('About') }}
                     </x-nav-link>
-                    <x-nav-link class=" text-black">
+                    <x-nav-link class=" text-black" :href="route('contact')" :active="request()->routeIs('contact')" wire:navigate>
                             {{ __('Contact') }}
                     </x-nav-link>
-                    <x-nav-link class=" text-black">
+                    <x-nav-link class=" text-black" :href="route('policies')" :active="request()->routeIs('policies')" wire:navigate>
                             {{ __('Policies') }}
                     </x-nav-link>
                 </div>

@@ -16,11 +16,11 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
-        daisyui: {
-            themes: ["cupcake"],
-          },
+       
     },
-
+    daisyui: {
+        themes: ["cupcake"],
+      },
     plugins: [
 		forms,
 		require("daisyui")
