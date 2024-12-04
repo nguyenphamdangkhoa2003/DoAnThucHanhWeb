@@ -106,7 +106,9 @@ new class extends Component
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                <x-responsive-nav-link :href="route('dashboard')" wire:navigate>
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
