@@ -83,6 +83,8 @@
                                                     <!-- Số lượng phòng còn lại cố định -->
                                                     <p class="text-end p-3 text-green-500 font-bold text-xs">
                                                         Còn 3 phòng
+
+
                                                     </p>
                                                     <div>
                                                         <button

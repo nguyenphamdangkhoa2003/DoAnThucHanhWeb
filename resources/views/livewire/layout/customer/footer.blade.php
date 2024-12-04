@@ -58,7 +58,7 @@
                     <x-application-logo class="block h-9 w-auto fill-current text-orange-400" />
                 </div>
                 <div class="cpyright text-orange-400">
-                    © All Rights Reserved. Terracotta Hotel & Resort Dalat - Website by Seven Media
+                    © All Rights Reserved. Terracotta Hotel & Resort Dalat - Website by Seven Media
                 </div>
             </div>
         </div>
