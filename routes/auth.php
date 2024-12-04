@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Middleware\IsAdminMiddleware;
+use App\Livewire\Pages\Admin\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -28,4 +30,8 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
+});
+
+Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {
+    Route::get("/admin/dashboard", Dashboard::class)->name("dashboard");
 });
