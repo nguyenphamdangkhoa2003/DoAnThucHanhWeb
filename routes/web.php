@@ -21,6 +21,12 @@ Route::view('contact', 'livewire.pages.customer.contact')
 // route contact
 Route::view('policies', 'livewire.pages.customer.policies')
     ->name('policies');
+// route booking-info
+Route::view('booking-info', 'livewire.pages.customer.booking-info')
+    ->name('booking-info');
+
+
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
