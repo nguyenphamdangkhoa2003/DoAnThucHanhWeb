@@ -9,17 +9,6 @@ class Image extends Model
 {
     protected $fillable = [
         "url",
-        "imageable_id",
-        "imageable_type"
+        "public_image_id"
     ];
-
-    public function banner(): BelongsTo
-    {
-        return $this->belongsTo(Banner::class);
-    }
-
-    public function room_type(): BelongsTo
-    {
-        return $this->belongsTo(RoomType::class);
-    }
 }

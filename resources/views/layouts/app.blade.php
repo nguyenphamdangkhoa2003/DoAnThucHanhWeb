@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="cupcake">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="garden">
 
 <head>
     <meta charset="utf-8">
@@ -17,25 +17,44 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-white">
-<livewire:layout.navigation />
+    <x-mary-nav sticky full-width>
 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endif
+        <x-slot:brand>
+            {{-- Drawer toggle for "main-drawer" --}}
+            <label for="main-drawer" class="lg:hidden mr-3">
+                <x-mary-icon name="o-bars-3" class="cursor-pointer" />
+            </label>
 
-        <!-- Page Content -->
-        <div>
-            @yield('content')
-        </div>
+            {{-- Brand --}}
+            <div>App</div>
+        </x-slot:brand>
 
-        @livewire('layout/customer/footer')
+        {{-- Right side actions --}}
+        <x-slot:actions>
+            @if (Auth::check())
+                <x-mary-dropdown label="{{ Auth::user()->name }}">
+                    <x-mary-menu-item title="Profile" link="{{ route('profile') }}" />
+                    <x-mary-menu-item title="Dashboard" link="{{ route('dashboard') }}" />
+                </x-mary-dropdown>
+            @else
+                <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm" responsive />
+                <x-mary-button label="Register" link="{{ route('register') }}" class="btn-ghost btn-sm" responsive />
+            @endif
+        </x-slot:actions>
+    </x-mary-nav>
+    <x-mary-main with-nav full-width>
+        {{-- This is a sidebar that works also as a drawer on small screens --}}
+        {{-- Notice the `main-drawer` reference here --}}
 
+        {{-- The `$slot` goes here --}}
+        <x-slot:content>
+            {{ $slot }}
+        </x-slot:content>
+    </x-mary-main>
+
+    {{--  TOAST area --}}
+    <x-mary-toast />
+    @livewire('layout/customer/footer')
     </div>
 </body>
 

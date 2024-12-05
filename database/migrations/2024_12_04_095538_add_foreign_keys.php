@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Banner;
 use App\Models\Booking;
 use App\Models\CheckInForm;
 use App\Models\CheckOutForm;
@@ -45,6 +46,12 @@ return new class extends Migration {
             $table->foreignIdFor(Room::class)->constrained();
             $table->foreignIdFor(CheckOutForm::class)->constrained();
         });
+
+        Schema::table("images", function (Blueprint $table) {
+            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(RoomType::class)->nullable();
+            $table->foreignIdFor(Banner::class)->nullable();
+        });
     }
 
     /**
@@ -81,5 +88,10 @@ return new class extends Migration {
             $table->dropForeignIdFor(CheckOutForm::class)->constrained();
         });
 
+        Schema::table("images", function (Blueprint $table) {
+            $table->dropForeignIdFor(User::class);
+            $table->dropForeignIdFor(RoomType::class);
+            $table->dropForeignIdFor(Banner::class);
+        });
     }
 };

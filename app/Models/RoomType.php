@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RoomType extends Model
 {
@@ -11,8 +12,17 @@ class RoomType extends Model
         "room_type_name",
         "description",
         "base_price",
-        "level",
         "children",
         "adults"
     ];
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function room(): HasMany
+    {
+        return $this->hasMany(Room::class);
+    }
 }

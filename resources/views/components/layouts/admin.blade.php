@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="cupcake">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="garden">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,6 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -33,7 +32,7 @@
     {{-- MAIN --}}
     <x-mary-main full-width>
         {{-- SIDEBAR --}}
-        <x-mary-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
+        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
             {{-- BRAND --}}
             <div class="ml-5 pt-5">App</div>
@@ -56,13 +55,14 @@
                     <x-mary-menu-separator />
                 @endif
 
-                <x-mary-menu-item title="Hello" icon="o-sparkles" link="/" />
-                <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
-                    <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />
-                    <x-mary-menu-item title="Archives" icon="o-archive-box" link="####" />
-                </x-mary-menu-sub>
+                <x-mary-menu-item title="Dashboard" icon="o-chart-bar" link="{{ route('dashboard') }}" />
+                <x-mary-menu-item title="User" icon="o-user" link="{{ route('list-user') }}" />
+                <x-mary-menu-item title="Room Types" icon="o-tag" link="{{ route('list-type-room') }}" />
+                <x-mary-menu-item title="Room" icon="o-home-modern" link="{{ route('list-room') }}" />
+                <x-mary-menu-item title="Booking" icon="o-shopping-cart" link="{{ route('list-booking') }}" />
+                <x-mary-menu-item title="Banners" icon="o-banknotes" link="{{ route('banners') }}" />
             </x-mary-menu>
-        </x-mary-slot:sidebar>
+        </x-slot:sidebar>
 
         {{-- The `$slot` goes here --}}
         <x-slot:content>
@@ -73,3 +73,5 @@
     {{-- Toast --}}
     <x-mary-toast />
 </body>
+
+</html>
