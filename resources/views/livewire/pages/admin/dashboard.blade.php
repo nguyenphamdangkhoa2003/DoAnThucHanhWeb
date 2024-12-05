@@ -1,3 +1,3 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
+    <x-mary-header title="Dashboard" separator />
 </div>

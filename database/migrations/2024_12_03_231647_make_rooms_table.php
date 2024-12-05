@@ -13,7 +13,8 @@ return new class extends Migration {
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->boolean("is_avaliable");
+            $table->boolean("is_avaliable")->default(true);
+            $table->string("room_number");
             $table->timestamps();
         });
     }

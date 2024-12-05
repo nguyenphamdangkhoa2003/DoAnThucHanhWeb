@@ -14,8 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->string("public_image_id");
             $table->string("url")->default("https://res.cloudinary.com/dff6pkxpt/image/upload/v1733269200/defaultImage_feihcw.png");
-            $table->integer("imageable_id");
-            $table->enum("imageable_type", ["banner", "room_type", "about_page"]);
             $table->timestamps();
         });
     }

@@ -2,7 +2,16 @@
 
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Middleware\IsAdminMiddleware;
+use App\Livewire\Pages\Admin\AddRoom;
+use App\Livewire\Pages\Admin\AddRoomType;
+use App\Livewire\Pages\Admin\Banners;
 use App\Livewire\Pages\Admin\Dashboard;
+use App\Livewire\Pages\Admin\ListBooking;
+use App\Livewire\Pages\Admin\ListRoom;
+use App\Livewire\Pages\Admin\ListTypeRoom;
+use App\Livewire\Pages\Admin\ListUser;
+use App\Livewire\Pages\Admin\UpdateRoom;
+use App\Livewire\Pages\Admin\UpdateRoomType;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -33,5 +42,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {
-    Route::get("/admin/dashboard", Dashboard::class)->name("dashboard");
+    Route::get("admin/dashboard", Dashboard::class)->name("dashboard");
+    Volt::route("admin/list-user", ListUser::class)->name("list-user");
+    Volt::route("admin/list-type-room", ListTypeRoom::class)->name("list-type-room");
+    Volt::route("admin/add-room-type", AddRoomType::class)->name("add-room-type");
+    Volt::route("admin/update-room-type/{id}", UpdateRoomType::class)->name("update-room-type");
+    Volt::route("admin/list-room", ListRoom::class)->name("list-room");
+    Volt::route("admin/add-room", AddRoom::class)->name("add-room");
+    Volt::route("admin/update-room/{id}", UpdateRoom::class)->name("update-room");
+    Volt::route("admin/list-booking", ListBooking::class)->name("list-booking");
+    Volt::route("admin/banners", Banners::class)->name("banners");
 });
