@@ -15,9 +15,12 @@ return new class extends Migration {
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->date("check_int")->default(Date::now());
-            $table->date("check_out")->default(Date::now());
+            $table->string("cus_name");
+            $table->string("cus_email");
+            $table->string("cus_phone");
+            $table->string("cus_address");
             $table->double("total_price");
+            $table->enum("status", ["pending", "confirm", "cancel"]);
             $table->timestamps();
         });
     }

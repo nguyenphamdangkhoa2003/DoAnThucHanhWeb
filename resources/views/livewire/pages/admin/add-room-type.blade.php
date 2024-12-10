@@ -7,11 +7,10 @@
         <x-mary-input type="number" wire:model="form.base_price" label="Base price" />
         <x-mary-input type="number" wire:model="form.children" label="Children" />
         <x-mary-input type="number" wire:model="form.adults" label="Adults" />
-        <x-mary-file wire:model="photos" label="Documents" accept="image/png, image/jpeg" multiple />
+        <x-mary-file type="file" wire:model="photos" wire:key="{{ Auth::user()->id }}" multiple laebl="Photos" />
         <x-slot:actions>
             <x-mary-button label="Cancel" wire:click="back" spinner="back" />
-            <x-mary-button label="Save" icon-right="o-paper-airplane" class="btn-primary" type="submit"
-                spinner="save" />
+            <x-mary-button label="Save" icon-right="o-paper-airplane" class="btn-primary" type="submit" spinner />
         </x-slot:actions>
     </x-mary-form>
 </div>

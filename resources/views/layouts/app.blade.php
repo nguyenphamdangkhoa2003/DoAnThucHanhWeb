@@ -16,37 +16,61 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
-    <x-mary-nav sticky full-width>
-
-        <x-slot:brand>
-            {{-- Drawer toggle for "main-drawer" --}}
-            <label for="main-drawer" class="lg:hidden mr-3">
-                <x-mary-icon name="o-bars-3" class="cursor-pointer" />
-            </label>
-
-            {{-- Brand --}}
-            <div>App</div>
-        </x-slot:brand>
-
-        {{-- Right side actions --}}
-        <x-slot:actions>
-            @if (Auth::check())
-                <x-mary-dropdown label="{{ Auth::user()->name }}">
-                    <x-mary-menu-item title="Profile" link="{{ route('profile') }}" />
-                    <x-mary-menu-item title="Dashboard" link="{{ route('dashboard') }}" />
-                </x-mary-dropdown>
-            @else
-                <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm" responsive />
-                <x-mary-button label="Register" link="{{ route('register') }}" class="btn-ghost btn-sm" responsive />
-            @endif
-        </x-slot:actions>
-    </x-mary-nav>
+<body class="font-sans antialiased relative">
+    <div class="navbar bg-base-100 shadow-md sticky top-0 z-10">
+        <div class="navbar-start">
+            KhachSan2k
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <x-mary-menu activate-by-route class="flex-row">
+                <x-mary-menu-item title="Home" link="{{ route('home') }}" />
+                <x-mary-menu-item title="About" link="{{ route('about') }}" />
+                <x-mary-menu-item title="Contact" link="{{ route('contact') }}" />
+                <x-mary-menu-item title="Policies" link="{{ route('policies') }}" />
+            </x-mary-menu>
+        </div>
+        <div class="navbar-end flex-none gap-2">
+            <div class="form-control">
+                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+            </div>
+            <div class="dropdown dropdown-end">
+                @if (Auth::check())
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">
+                            <img
+                                src="
+                                @isset(Auth::user()->avatar)
+                                    {{ Auth::user()->avatar->url }}
+                                @endisset
+                                " />
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        <li>
+                            <a class="justify-between" href="{{ route('profile') }}">
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="justify-between" href="{{ route('profile') }}">
+                                Booking history
+                            </a>
+                        </li>
+                        @if (Auth::user()->role == 'admin')
+                            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        @endif
+                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                    </ul>
+                @else
+                    <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm" responsive />
+                    <x-mary-button label="Register" link="{{ route('register') }}" class="btn-ghost btn-sm"
+                        responsive />
+                @endif
+            </div>
+        </div>
+    </div>
     <x-mary-main with-nav full-width>
-        {{-- This is a sidebar that works also as a drawer on small screens --}}
-        {{-- Notice the `main-drawer` reference here --}}
-
-        {{-- The `$slot` goes here --}}
         <x-slot:content>
             {{ $slot }}
         </x-slot:content>

@@ -20,12 +20,11 @@ return new class extends Migration {
     {
         Schema::table("bookings", function (Blueprint $table) {
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(RoomType::class)->constrained();
             $table->foreignIdFor(Payment::class)->constrained();
         });
-
-        Schema::table("payments", function (Blueprint $table) {
+        Schema::table("booking_details", function (Blueprint $table) {
             $table->foreignIdFor(Booking::class)->constrained();
+            $table->foreignIdFor(RoomType::class)->constrained();
         });
 
         Schema::table("rooms", function (Blueprint $table) {
@@ -64,11 +63,10 @@ return new class extends Migration {
             $table->dropForeignIdFor(RoomType::class);
             $table->dropForeignIdFor(Payment::class);
         });
-
-        Schema::table("payments", function (Blueprint $table) {
+        Schema::table("booking_details", function (Blueprint $table) {
             $table->dropForeignIdFor(Booking::class);
+            $table->dropForeignIdFor(RoomType::class);
         });
-
         Schema::table("rooms", function (Blueprint $table) {
             $table->dropForeignIdFor(RoomType::class);
         });

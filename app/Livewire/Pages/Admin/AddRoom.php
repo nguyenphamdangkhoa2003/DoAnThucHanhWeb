@@ -24,9 +24,13 @@ class AddRoom extends Component
 
     public function save()
     {
-        $this->form->validate();
-        Room::create($this->form->pull());
-        $this->success("Create room success!");
+        try {
+            $this->form->validate();
+            Room::create($this->form->pull());
+            $this->success("Create room success!");
+        } catch (\Throwable $th) {
+            $this->error($th->getMessage());
+        }
     }
 
     public function back()

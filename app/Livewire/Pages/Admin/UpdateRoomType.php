@@ -9,15 +9,14 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 use Route;
 
 class UpdateRoomType extends Component
 {
+    use WithFileUploads;
     use Toast;
-    #[Rule(['photos' => 'required'])]          // A separated rule to make it required
-    #[Rule(['photos.*' => 'image|max:1024'])]   // Notice `*` syntax for validate each file
-    public array $photos = [];
     public RoomTypeForm $form;
     public $id;
     #[Layout("components.layouts.admin")]
@@ -25,7 +24,6 @@ class UpdateRoomType extends Component
     {
         $this->id = Route::current()->parameter("id");
         $room_type = RoomType::findOrFail($this->id);
-
         $this->form->room_type_name = $room_type->room_type_name;
         $this->form->description = $room_type->description;
         $this->form->base_price = $room_type->base_price;
