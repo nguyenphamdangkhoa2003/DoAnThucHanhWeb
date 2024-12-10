@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('booking_details', function (Blueprint $table) {
             $table->id();
-            $table->double("price_per_room");
             $table->integer("quantity");
             $table->timestamps();
         });

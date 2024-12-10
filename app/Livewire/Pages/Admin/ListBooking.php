@@ -12,9 +12,9 @@ class ListBooking extends Component
     use Toast;
     public $headers = [
         ['key' => 'id', 'label' => '#'],
-        ['key' => 'check_int', 'label' => 'Check in'],
-        ['key' => 'check_out', 'label' => 'Check out'],
+        ['key' => 'status', 'label' => 'Status'],
         ["key" => "total_price", "label" => "Total price"],
+        ["key" => "action", "label" => "Action"],
     ];
     public array $sortBy = ['column' => 'id', 'direction' => 'asc'];
     public string $search = "";
@@ -31,5 +31,33 @@ class ListBooking extends Component
         return view('livewire.pages.admin.list-booking', [
             "bookings" => $bookings
         ]);
+    }
+
+    public function approve($id)
+    {
+        $booking = Booking::find($id);
+        if (!$booking) {
+            return $this->error("Not found");
+        }
+        $booking->status = "confirm";
+        $booking->save();
+        return $this->success("Approve successfully");
+
+    }
+
+    public function delete($id)
+    {
+        $booking = Booking::find($id);
+        if (!$booking) {
+            return $this->error("Not found");
+        }
+        $booking->status = "cancel";
+        $booking->save();
+        return $this->success("Cancel successfully");
+    }
+
+    public function detail($id)
+    {
+        return $this->redirectRoute("detail-booking", ["id" => $id]);
     }
 }

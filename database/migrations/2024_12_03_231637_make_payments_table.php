@@ -13,7 +13,7 @@ return new class extends Migration {
     {
         Schema::create("payments", function (Blueprint $table) {
             $table->id();
-            $table->enum("payment_types", ["Online", "Trực tiếp"]);
+            $table->string("payment_type");
             $table->double("amount");
             $table->date("payment_date")->default(Date::now());
             $table->timestamps();

@@ -13,12 +13,12 @@ return new class extends Migration {
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->boolean("is_avaliable")->default(true);
+            $table->date("start_date")->nullable();
+            $table->date("end_date")->nullable();
             $table->string("room_number");
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

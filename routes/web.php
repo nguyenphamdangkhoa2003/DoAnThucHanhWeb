@@ -1,27 +1,25 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
+use App\Livewire\Pages\Customer\About;
+use App\Livewire\Pages\Customer\BookingInfo;
+use App\Livewire\Pages\Customer\Contact;
+use App\Livewire\Pages\Customer\Home;
+use App\Livewire\Pages\Customer\Policies;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'livewire.pages.customer.home')->name("home");
+Route::get('/', Home::class)->name("home");
 
 // route About
-Route::view('about', 'livewire.pages.customer.about')
+Route::get('about', About::class)
     ->name('about');
 // route contact
-Route::view('contact', 'livewire.pages.customer.contact')
+Route::get('contact', Contact::class)
     ->name('contact');
 // route contact
-Route::view('policies', 'livewire.pages.customer.policies')
+Route::get('policies', Policies::class)
     ->name('policies');
 // route booking-info
-Route::view('booking-info', 'livewire.pages.customer.booking-info')
-    ->name('booking-info');
-
-
-
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::get("/vnpay_php", [PaymentController::class, "vnpay_payment"])->name("vnpay_php");
 
 require __DIR__ . '/auth.php';

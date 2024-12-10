@@ -11,11 +11,18 @@ class Booking extends Model
 {
     protected $fillable = [
         "total_price",
-        "check_in",
-        "checkout_out"
+        "cus_name",
+        "cus_email",
+        "cus_phone",
+        "user_id",
+        "room_type_id",
+        "booking_detail",
+        "cus_address",
+        "payment_id",
+        "booking_id"
     ];
 
-    public function booking_detail(): HasMany
+    public function booking_details(): HasMany
     {
         return $this->hasMany(related: BookingDetail::class);
     }
