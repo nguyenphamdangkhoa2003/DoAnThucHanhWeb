@@ -1,11 +1,11 @@
-<div class="shadow border rounded-lg bg-white overflow-hidden max-w-5xl mx-auto">
+<div class="shadow border rounded-lg bg-white overflow-hidden max-w-3xl mx-auto m-6">
     @isset($slides)
         <x-mary-carousel :slides="$slides" class="rounded-none h-[300px]" />
     @endisset
-    <div class="p-5">
+    <div class="p-6">
         <x-mary-header title="About" separator />
         @isset($about_page)
-            <div>{!! $about_page->content !!}</div>
+            <div class="pb-5">{!! $about_page->content !!}</div>
         @endisset
     </div>
 </div>

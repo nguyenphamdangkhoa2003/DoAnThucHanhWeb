@@ -1,5 +1,5 @@
 <div>
-    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <main class="mx-auto max-w-3xl">
         <div class="py-6">
             <div class="shadow border rounded-lg bg-white overflow-hidden">
                 <div class="">

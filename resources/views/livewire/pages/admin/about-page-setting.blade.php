@@ -7,4 +7,4 @@
             <x-mary-button label="Save" class="btn-primary" type="submit" spinner="save" />
         </x-slot:actions>
     </x-mary-form>
-</div>
+</div

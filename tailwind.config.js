@@ -18,7 +18,15 @@ export default {
         },
     },
     daisyui: {
-        themes: ["garden"],
+        themes: [
+            {
+                mytheme: {
+                    primary: "#EA9E67", 
+                    secondary: "#FDF9F6"
+                },
+            },
+            "garden"
+        ],
     },
     plugins: [forms, require("daisyui")],
 };
