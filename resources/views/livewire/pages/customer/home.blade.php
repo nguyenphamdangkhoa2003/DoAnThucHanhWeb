@@ -47,7 +47,7 @@
                                             }
                                         @endphp
                                         <div class="w-full h-full">
-                                            <x-mary-carousel class="rounded-none rounded-tl-lg " :slides="$slides"
+                                            <x-mary-carousel class="rounded-none rounded-tl-lg" :slides="$slides"
                                                 without-indicators />
                                         </div>
                                     </div>

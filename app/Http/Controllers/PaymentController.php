@@ -6,9 +6,10 @@ use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\Payment;
 use Auth;
+use Request;
 class PaymentController extends Controller
 {
-    public function vnpay_payment()
+    public function vnpay_payment(Request $request)
     {// Lấy giá trị từ request
         $vnp_SecureHash = $_GET['vnp_SecureHash'];
         $inputData = array();
@@ -58,6 +59,18 @@ class PaymentController extends Controller
                         "room_type_id" => $value["room_type"]["id"]
                     ]);
                 }
+
+                session()->put('payment_data', [
+                    'transaction_no' => $inputData["vnp_TransactionNo"],
+                    'amount' => session()->get("total_price"),
+                    'payment_type' => $inputData["vnp_CardType"],
+                    'email' => Auth::user()->email,
+                    'phone' => Auth::user()->phone,
+                    'bank_code' => $inputData["vnp_BankCode"],
+                    'order_info' => urldecode($inputData["vnp_OrderInfo"]),
+                ]);
+
+                // return redirect()->route('payment.success');
                 return view("PaymentSuccess");
             } else {
                 echo "GD Khong thanh cong";

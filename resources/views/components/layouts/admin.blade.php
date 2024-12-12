@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="garden">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="mytheme">
 
 <head>
     <meta charset="utf-8">
@@ -49,8 +49,8 @@
                 @if ($user = auth()->user())
                     <x-mary-menu-separator />
 
-                    <x-mary-list-item :item="$user" value="name" sub-value="email" avatar="avatar.url"
-                        no-separator no-hover class="-mx-2 !-my-2 rounded">
+                    <x-mary-list-item :item="$user" value="name" sub-value="email" avatar="avatar.url" no-separator no-hover
+                        class="-mx-2 !-my-2 rounded">
                         <x-slot:actions>
                             <x-mary-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="logoff"
                                 no-wire-navigate link="{{ route('logout') }}" />

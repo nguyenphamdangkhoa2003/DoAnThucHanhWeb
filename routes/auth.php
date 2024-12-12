@@ -22,6 +22,7 @@ use App\Livewire\Pages\Admin\UpdatePolicy;
 use App\Livewire\Pages\Admin\UpdateRoom;
 use App\Livewire\Pages\Admin\UpdateRoomType;
 use App\Livewire\Pages\Customer\BookingInfo;
+use App\Livewire\Pages\Customer\PaymentSuccess;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
 
     Route::view('profile', 'profile')
         ->name('profile');
+
 });
 
 Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {
