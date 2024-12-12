@@ -14,39 +14,39 @@
         </x-mary-step>
         <x-mary-step step="2" text="Confirm Type Room Selected">
             @foreach ($selected_type_room as $key => $item)
-                <x-mary-list-item :item="$item">
-                    <x-slot:avatar class="w-2/5">
-                        @php
-                            $type_room = App\Models\RoomType::find($item['room_type']['id']);
-                            $slides = [];
-                            if (isset($type_room->images)) {
-                                foreach ($type_room->images as $image) {
-                                    $slides[] = [
-                                        'image' => $image->url,
-                                    ];
-                                }
-                            }
-                        @endphp
-                        <x-mary-carousel :slides="$slides" without-indicators />
-                    </x-slot:avatar>
-                    <x-slot:value class="text-2xl">
-                        {{ $item['room_type']['room_type_name'] }}
-                    </x-slot:value>
-                    <x-slot:sub-value>
-                        <div>
-                            {{ $item['room_type']['description'] }}
-                        </div>
-                        <div>
-                            x{{ $item['count'] }}
-                        </div>
-                    </x-slot:sub-value>
-                    <x-slot:actions>
-                        <x-mary-button icon="o-trash" class="text-red-500"
-                            wire:click="deleteTypeRoomSelected({{ $key }})" spinner />
-                    </x-slot:actions>
-                </x-mary-list-item>
+                        <x-mary-list-item :item="$item">
+                            <x-slot:avatar class="w-2/5">
+                                @php
+                                    $type_room = App\Models\RoomType::find($item['room_type']['id']);
+                                    $slides = [];
+                                    if (isset($type_room->images)) {
+                                        foreach ($type_room->images as $image) {
+                                            $slides[] = [
+                                                'image' => $image->url,
+                                            ];
+                                        }
+                                    }
+                                @endphp
+                                <x-mary-carousel :slides="$slides" without-indicators />
+                            </x-slot:avatar>
+                            <x-slot:value class="text-2xl">
+                                {{ $item['room_type']['room_type_name'] }}
+                            </x-slot:value>
+                            <x-slot:sub-value>
+                                <div>
+                                    {{ $item['room_type']['description'] }}
+                                </div>
+                                <div>
+                                    x{{ $item['count'] }}
+                                </div>
+                            </x-slot:sub-value>
+                            <x-slot:actions>
+                                <x-mary-button icon="o-trash" class="text-red-500" wire:click="deleteTypeRoomSelected({{ $key }})"
+                                    spinner />
+                            </x-slot:actions>
+                        </x-mary-list-item>
             @endforeach
-            <div class="flex justify-end mt-3">
+            <div class="flex justify-end mt-3 gap-3">
                 <x-mary-button label="Cancel" wire:click="prev" spinner="prev" />
                 <x-mary-button label="Continue" class="btn-primary" type="submit" spinner="next" wire:click="next" />
             </div>
@@ -59,8 +59,7 @@
                 <x-slot:actions>
                     <x-mary-button label="Cancel" wire:click="prev" />
                     <x-mary-button label="Redirect
-                        Payment" class="btn-primary" type="submit"
-                        spinner="redirectPayment" />
+                        Payment" class="btn-primary" type="submit" spinner="redirectPayment" />
                 </x-slot:actions>
             </x-mary-form>
         </x-mary-step>

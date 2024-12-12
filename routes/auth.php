@@ -21,6 +21,7 @@ use App\Livewire\Pages\Admin\ListUser;
 use App\Livewire\Pages\Admin\UpdatePolicy;
 use App\Livewire\Pages\Admin\UpdateRoom;
 use App\Livewire\Pages\Admin\UpdateRoomType;
+use App\Livewire\Pages\Customer\BookingHistory;
 use App\Livewire\Pages\Customer\BookingInfo;
 use App\Livewire\Pages\Customer\PaymentSuccess;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('booking-info', BookingInfo::class)
         ->name('booking-info');
+
+    Route::get('booking-history', BookingHistory::class)
+        ->name('booking-history');
 
     Route::view('profile', 'profile')
         ->name('profile');

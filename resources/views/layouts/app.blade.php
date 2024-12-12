@@ -50,10 +50,10 @@
                                 <div class="w-10 rounded-full">
                                     <img
                                         src="
-                                                                                                                                                                @isset(Auth::user()->avatar)
-                                                                                                                                                                    {{ Auth::user()->avatar->url }}
-                                                                                                                                                                @endisset
-                                                                                                                                                                " />
+                                                                                                                                                                        @isset(Auth::user()->avatar)
+                                                                                                                                                                            {{ Auth::user()->avatar->url }}
+                                                                                                                                                                        @endisset
+                                                                                                                                                                        " />
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="justify-between" href="{{ route('profile') }}">
+                                <a class="justify-between" href="{{ route('booking-history') }}">
                                     Booking history
                                 </a>
                             </li>
@@ -85,7 +85,7 @@
         </div>
     </div>
     <x-mary-main with-nav full-width>
-        <x-slot:content class="!py-0 !p-0">
+        <x-slot:content class="!py-0 !p-0 relative">
             {{ $slot }}
         </x-slot:content>
     </x-mary-main>

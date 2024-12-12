@@ -27,7 +27,7 @@
         <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <section aria-labelledby="products-heading" class="pb-10 pt-6">
-                    <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-6">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-6 relative">
                         <!-- ===== -->
                         <!-- Product grid -->
                         <div class="lg:col-span-4">
@@ -131,7 +131,7 @@
                         <!-- ===== -->
 
                         <!-- cart booking -->
-                        <div class="lg:col-span-2">
+                        <div class="lg:col-span-2 relative">
                             <x-mary-card class="sticky top-10"
                                 subtitle="{{ $formattedStartDate }} - {{ $formattedEndDate }}" separator
                                 progress-indicator="selected" class="border rounded shadow">
