@@ -16,6 +16,10 @@
     <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/uld93l9ghco0r3u0fwzfp2flnt2ku1iv9n7qa3i0626ibgi2/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
+
+    {{-- Chart.js  --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

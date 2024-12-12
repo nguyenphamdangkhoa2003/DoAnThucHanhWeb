@@ -8,6 +8,7 @@ use App\Models\RoomType;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
@@ -18,6 +19,9 @@ class UpdateRoomType extends Component
     use WithFileUploads;
     use Toast;
     public RoomTypeForm $form;
+    #[Validate("required")]
+    #[Validate(['photos.*' => 'image|max:1024'])]
+    public $photos = [];
     public $id;
     #[Layout("components.layouts.admin")]
     public function render()
@@ -41,7 +45,7 @@ class UpdateRoomType extends Component
     {
         try {
             $this->form->validate();
-            $room_type = RoomType::find($this->id);
+            $room_type = RoomType::findOrFail($this->id);
             $room_type->update($this->form->pull());
             $images = $room_type->images;
             if (count($this->photos) > 0) {

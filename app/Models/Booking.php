@@ -15,11 +15,8 @@ class Booking extends Model
         "cus_email",
         "cus_phone",
         "user_id",
-        "room_type_id",
-        "booking_detail",
         "cus_address",
-        "payment_id",
-        "booking_id"
+        
     ];
 
     public function booking_details(): HasMany

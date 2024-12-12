@@ -53,7 +53,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="justify-between" href="{{ route('profile') }}">
+                            <a class="justify-between" href="{{ route('booking-history') }}">
                                 Booking history
                             </a>
                         </li>

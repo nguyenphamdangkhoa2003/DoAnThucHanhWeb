@@ -20,11 +20,10 @@ return new class extends Migration {
     {
         Schema::table("bookings", function (Blueprint $table) {
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Payment::class)->constrained();
         });
         Schema::table("booking_details", function (Blueprint $table) {
-            $table->foreignIdFor(Booking::class)->constrained();
-            $table->foreignIdFor(RoomType::class)->constrained();
+            $table->foreignIdFor(model: Booking::class)->constrained();
+            $table->foreignIdFor(Room::class)->constrained();
         });
 
         Schema::table("rooms", function (Blueprint $table) {
@@ -50,6 +49,9 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(RoomType::class)->nullable();
             $table->foreignIdFor(Banner::class)->nullable();
+        });
+        Schema::table("payments", function (Blueprint $table) {
+            $table->foreignIdFor(Booking::class)->constrained();
         });
     }
 

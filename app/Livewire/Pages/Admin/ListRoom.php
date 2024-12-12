@@ -16,7 +16,6 @@ class ListRoom extends Component
     public $headers = [
         ['key' => 'id', 'label' => '#'],
         ['key' => 'room_number', 'label' => 'Room Number'],
-        ["key" => "is_avaliable", "label" => "Is Avaliable"],
         ["key" => "room_type.room_type_name", "label" => "Room Type"],
         ["key" => "action", "label" => "Action"]
     ];
