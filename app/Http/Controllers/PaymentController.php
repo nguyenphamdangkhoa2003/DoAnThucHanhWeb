@@ -73,10 +73,10 @@ class PaymentController extends Controller
                 // return redirect()->route('payment.success');
                 return view("PaymentSuccess");
             } else {
-                echo "GD Khong thanh cong";
+                return view("PaymentSuccess");
             }
         } else {
-            echo "Chu ky khong hop le";
+            return view("PaymentSuccess");
         }
 
 

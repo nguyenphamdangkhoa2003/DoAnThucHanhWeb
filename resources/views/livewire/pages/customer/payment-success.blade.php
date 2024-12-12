@@ -1,5 +1,5 @@
 <div>
-    <div class="card rounded-none bg-neutral border shadow-3xl m-auto my-10 text-neutral-content w-96">
+    <div class="card rounded-none bg-neutral border shadow-2xl m-auto my-10 text-neutral-content w-96">
         <div class="card-body items-center text-center">
             <h2 class="card-title text-green-400 font-medium text-xl">Payment Successfull!</h2>
             <div class="avatar py-6">
