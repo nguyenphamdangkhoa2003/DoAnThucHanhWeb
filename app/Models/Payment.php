@@ -13,7 +13,7 @@ class Payment extends Model
         "amount",
         "payment_date",
         "user_id",
-        "room_type_id"
+        "booking_id",
     ];
 
     public function booking(): HasOne

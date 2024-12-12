@@ -41,7 +41,6 @@ class UpdateRoom extends Component
             $room->room_type_id = $this->form->room_type_id;
             $room->save();
             $this->success("Update room success!");
-            return $this->redirectIntended(route("list-room"));
         } catch (\Throwable $th) {
             $this->error("Update room fail!");
         }

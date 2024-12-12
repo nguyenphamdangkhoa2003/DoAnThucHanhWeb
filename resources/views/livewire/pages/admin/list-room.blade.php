@@ -10,13 +10,6 @@
     {{-- TOAST --}}
     <x-mary-toast class="w-full!" />
     <x-mary-table :headers="$headers" :rows="$rooms" :sort-by="$sortBy" with-pagination>
-        @scope('cell_is_avaliable', $room)
-            @if ($room->is_avaliable != '1')
-                <x-mary-badge value="Unavailable" class="badge-error" />
-            @else
-                <x-mary-badge value="Available" class="badge-info" />
-            @endif
-        @endscope
         @scope('cell_action', $room)
             <x-mary-button icon="o-trash" wire:click.prevent="delete({{ $room->id }})" spinner
                 class="btn-sm text-red-400" wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE" />

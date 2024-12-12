@@ -2,16 +2,22 @@
 
 namespace App\Livewire\Pages\Customer;
 
-use App\Models\Booking;
-use Auth;
-use Livewire\Component;
 
+use App\Models\User;
+use Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+#[Layout("layouts.app")]
 class BookingHistory extends Component
 {
-
     public function render()
     {
-        $booking_history = Booking::where('user_id', Auth::user()->id);
-        return view('livewire.pages.customer.booking-history', compact('booking_history'));
+        $user = User::find(Auth::user()->id);
+        return view(
+            'livewire.pages.customer.booking-history',
+            [
+                "booking_history" => $user->booking_history,
+            ]
+        );
     }
 }

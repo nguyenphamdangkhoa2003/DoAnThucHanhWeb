@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('booking_details', function (Blueprint $table) {
             $table->id();
             $table->integer("quantity");
+            $table->date("check_in");
+            $table->date("check_out");
             $table->timestamps();
         });
     }

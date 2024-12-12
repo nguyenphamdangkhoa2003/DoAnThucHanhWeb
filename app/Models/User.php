@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,7 +50,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    public function booking_history(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
     public function avatar(): HasOne
     {
         return $this->hasOne(Image::class);

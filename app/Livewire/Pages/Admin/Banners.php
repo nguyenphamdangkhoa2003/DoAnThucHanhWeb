@@ -16,7 +16,7 @@ class Banners extends Component
 {
     use WithFileUploads;
     #[Rule(['photos' => 'required'])]          // A separated rule to make it required
-    #[Rule(['photos.*' => 'image|max:100'])]   // Notice `*` syntax for validate each file
+    #[Rule(['photos.*' => 'image|max:1024'])]   // Notice `*` syntax for validate each file
     public array $photos = [];
     public Collection $images;
     public ?Banner $banner;

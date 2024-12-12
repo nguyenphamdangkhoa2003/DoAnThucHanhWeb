@@ -50,10 +50,9 @@
                                 <div class="w-10 rounded-full">
                                     <img
                                         src="
-                                                                                                                                                                        @isset(Auth::user()->avatar)
-                                                                                                                                                                            {{ Auth::user()->avatar->url }}
-                                                                                                                                                                        @endisset
-                                                                                                                                                                        " />
+                                                                                                                                                                                                @isset(Auth::user()->avatar)
+                                                                                                                                                                                                @endisset
+                                                                                                                                                                                                " />
                                 </div>
                             </div>
 
@@ -81,6 +80,7 @@
                             responsive />
                     @endif
                 </div>
+
             </div>
         </div>
     </div>

@@ -2,11 +2,12 @@
 
 namespace App\Livewire\Pages\Customer;
 
-use App\Livewire\Forms\SearchBookingForm;
 use App\Models\Booking;
 use App\Models\RoomType;
 use Date;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Mary\Traits\Toast;
@@ -17,17 +18,24 @@ class Home extends Component
     use WithPagination;
     public $roomCount = []; // Biến để lưu số lượng phòng đã nhập
     public array $selected_type_room = [];
-    public SearchBookingForm $form;
+    public $children;
+    public $adults;
+    public $start_date;
+    public $end_date;
+    public function mount()
+    {
+        $this->children = 0;
+        $this->adults = 1;
+        $this->start_date = Date::now()->toDateString(); // Định dạng: YYYY-MM-DD
+        $this->end_date = Date::now()->addDay(1)->toDateString();
+    }
     public function render()
     {
-        // Gán giá trị cho biến $type_rooms
-        $type_rooms = RoomType::simplePaginate(3);
-        $this->form->start_date = Date::now();
-        $this->form->end_date = $this->form->start_date->copy()->addDays(1);
-        $formattedStartDate = $this->formatCustomDate($this->form->start_date);
-        $formattedEndDate = $this->formatCustomDate($this->form->end_date);
-        // Trả về view mà không cần phải truyền lại biến $type_rooms
-        return view('livewire.pages.customer.home', compact("type_rooms", "formattedStartDate", "formattedEndDate"));
+        return view('livewire.pages.customer.home', [
+            "type_rooms" => RoomType::where('adults', ">=", $this->adults)
+                ->where('children', ">=", $this->children)
+                ->get()
+        ]);
     }
     public function formatCustomDate($date)
     {
@@ -87,7 +95,10 @@ class Home extends Component
     {
         session()->put("selected_type_room", $this->selected_type_room);
         session()->put("total_price", $this->getTotalPrice());
-        // Chuyển hướng với dữ liệu đã lọc
+        session()->put("booking_dates", [
+            "start_date" => $this->start_date,
+            "end_date" => $this->end_date,
+        ]);
         return redirect()->route("booking-info");
     }
     public function getTotalPrice()
@@ -122,8 +133,14 @@ class Home extends Component
     {
         unset($this->selected_type_room[$key]);
     }
-    public function search()
+    public function updated($key)
     {
-
+        $this->validate();
     }
+    protected $rules = [
+        'children' => 'required|integer|min:0',
+        'adults' => 'required|integer|min:1',
+        'start_date' => 'required|date|before:end_date',
+        'end_date' => 'required|date|after:start_date',
+    ];
 }

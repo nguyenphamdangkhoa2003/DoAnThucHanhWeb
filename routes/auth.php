@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::view('profile', 'profile')
         ->name('profile');
 
+    Route::get("/booking-history", BookingHistory::class)->name("booking-history");
 });
 
 Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {

@@ -10,7 +10,9 @@ class BookingDetail extends Model
 {
     protected $fillable = [
         "booking_id",
-        "room_type_id",
+        "room_id",
+        "check_in",
+        "check_out",
         "quantity",
     ];
 
@@ -18,8 +20,8 @@ class BookingDetail extends Model
     {
         return $this->BelongsTo(Booking::class);
     }
-    public function room_type(): HasOne
+    public function room(): BelongsTo
     {
-        return $this->hasOne(RoomType::class);
+        return $this->belongsTo(Room::class);
     }
 }
