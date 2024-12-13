@@ -45,15 +45,17 @@
                 <div class="dropdown dropdown-end">
                     @if (Auth::check())
                         <div class="flex items-center gap-5">
-                            <span class="text-sm">{{Auth::user()->name}}</span>
+                            <span class="text-sm">{{ Auth::user()->name }}</span>
                             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                <div class="w-10 rounded-full">
-                                    <img
-                                        src="
-                                                                                                                                                                                                @isset(Auth::user()->avatar)
-                                                                                                                                                                                                @endisset
-                                                                                                                                                                                                " />
-                                </div>
+                                @isset(Auth::user()->avatar)
+                                    <div class="w-10 rounded-full">
+                                        <img
+                                            src="
+                                        {{ Auth::user()->avatar->url }}
+                                        " />
+
+                                    </div>
+                                @endisset
                             </div>
 
                         </div>
@@ -75,7 +77,8 @@
                             <li><a href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     @else
-                        <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm" responsive />
+                        <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm"
+                            responsive />
                         <x-mary-button label="Register" link="{{ route('register') }}" class="btn-ghost btn-sm"
                             responsive />
                     @endif

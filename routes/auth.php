@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\AuthenticationProvider;
 use App\Http\Controllers\PaymentController;
 use App\Http\Middleware\IsAdminMiddleware;
 use App\Livewire\Actions\Logout;
@@ -25,7 +26,10 @@ use App\Livewire\Pages\Admin\UpdateRoomType;
 use App\Livewire\Pages\Customer\BookingHistory;
 use App\Livewire\Pages\Customer\BookingInfo;
 use App\Livewire\Pages\Customer\PaymentSuccess;
+use App\Models\Image;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use Livewire\Volt\Volt;
 
 Route::middleware('guest')->group(function () {
@@ -41,10 +45,12 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
 
+    Route::get("/auth/redirect/google", [AuthenticationProvider::class, "redirect_provider"])->name("login-by-google");
 
+    Route::get("/auth/callback/google", [AuthenticationProvider::class, "authentication_callback"]);
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Volt::route('verify-email', 'pages.auth.verify-email')
         ->name('verification.notice');
 
@@ -55,12 +61,6 @@ Route::middleware('auth')->group(function () {
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
     Route::get("/log-out", Logout::class)->name("logout");
-
-    Route::get('booking-info', BookingInfo::class)
-        ->name('booking-info');
-
-    Route::get('booking-history', BookingHistory::class)
-        ->name('booking-history');
 
     Route::view('profile', 'profile')
         ->name('profile');
@@ -87,4 +87,13 @@ Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {
     Volt::route("admin/update-policy/{id}", UpdatePolicy::class)->name("update-policy");
     Volt::route("/admin/detail-booking/{id}", DetailBooking::class)->name("detail-booking");
     Volt::route("admin/room-booking-times/{id}", RoomBookingTimes::class)->name("room-booking-times");
+});
+
+Route::middleware(["auth", "verified"])->group(function () {
+
+    Route::get('booking-info', BookingInfo::class)
+        ->name('booking-info');
+
+    Route::get('booking-history', BookingHistory::class)
+        ->name('booking-history');
 });
