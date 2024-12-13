@@ -46,11 +46,10 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Remember Me -->
         <div class="block mt-4">
             <x-mary-checkbox label="Remember me" wire:model="form.remember" />
-            
         </div>
 
         <div class="flex flex-col items-center justify-end mt-4">
-            <x-mary-button label="LOGIN" class="rounded-full w-full text-xl text-white btn-primary" />
+            <x-mary-button type="submit" label="LOGIN" class="rounded-full w-full text-xl text-white btn-primary" />
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 text-end w-full dark:text-gray-400  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:text-primary" href="{{ route('password.request') }}" wire:navigate>
                     {{ __('Forgot your password?') }}
