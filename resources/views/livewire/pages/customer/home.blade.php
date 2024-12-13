@@ -9,7 +9,7 @@
                 </div>
                 <div
                     class="w-full md:max-w-7xl m-auto mx-6 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:absolute rounded-md border-primary border-2">
-                    <div class="flex justify-between items-center bg-base-100 p-3 shadow-md rounded">
+                    <div class="flex justify-around items-center bg-base-100 p-3 shadow-md rounded">
                         <x-mary-datetime label="Start date" wire:model.live="start_date" icon="o-calendar" />
                         <x-mary-datetime label="End date" wire:model.live="end_date" />
                         <x-mary-input type="number" label="Adults" wire:model.live="adults" min="1" />
