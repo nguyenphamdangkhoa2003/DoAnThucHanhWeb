@@ -26,7 +26,6 @@ class UpdateRoom extends Component
         $this->id = Route::current()->parameter("id");
         $room = Room::findOrFail($this->id);
         $this->form->room_number = $room->room_number;
-        $this->form->is_available = $room->is_avaliable;
         $this->form->room_type_id = $room->room_type_id;
         return view('livewire.pages.admin.update-room', [
             "room_types" => $room_types
@@ -37,7 +36,6 @@ class UpdateRoom extends Component
         try {
             $room = Room::find($this->id);
             $room->room_number = $this->form->room_number;
-            $room->is_avaliable = $this->form->is_available;
             $room->room_type_id = $this->form->room_type_id;
             $room->save();
             $this->success("Update room success!");

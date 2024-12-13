@@ -5,8 +5,6 @@
         <x-mary-input label="Room Number" wire:model="form.room_number" />
         <x-mary-select label="Type" :options="$room_types" option-value="id" option-label="room_type_name"
             placeholder="Room type" wire:model="form.room_type_id" />
-        <x-mary-select label="Available" :options="$available_options" placeholder="Is available ?"
-            wire:model="form.is_available" />
         <x-slot:actions>
             <x-mary-button label="Cancel" wire:click="back" spinner="back" />
             <x-mary-button label="Save" icon-right="o-paper-airplane" class="btn-primary" type="submit"

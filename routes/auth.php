@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthenticationProvider;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\CheckDefaultPasswordMiddleware;
 use App\Http\Middleware\IsAdminMiddleware;
 use App\Livewire\Actions\Logout;
 use App\Livewire\Pages\Admin\AboutPageSetting;
@@ -26,6 +27,7 @@ use App\Livewire\Pages\Admin\UpdateRoomType;
 use App\Livewire\Pages\Customer\BookingHistory;
 use App\Livewire\Pages\Customer\BookingInfo;
 use App\Livewire\Pages\Customer\PaymentSuccess;
+use App\Livewire\Pages\Customer\UpdatePassword;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +47,8 @@ Route::middleware('guest')->group(function () {
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
 
+
+
     Route::get("/auth/redirect/google", [AuthenticationProvider::class, "redirect_provider"])->name("login-by-google");
 
     Route::get("/auth/callback/google", [AuthenticationProvider::class, "authentication_callback"]);
@@ -62,10 +66,12 @@ Route::middleware(['auth'])->group(function () {
         ->name('password.confirm');
     Route::get("/log-out", Logout::class)->name("logout");
 
+    Volt::route("update-password", UpdatePassword::class)->name("password.update");
+});
+
+Route::middleware(["auth", CheckDefaultPasswordMiddleware::class])->group(function () {
     Route::view('profile', 'profile')
         ->name('profile');
-
-    Route::get("/booking-history", BookingHistory::class)->name("booking-history");
 });
 
 Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {

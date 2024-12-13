@@ -32,14 +32,11 @@ new #[Layout('layouts.guest')] class extends Component {
         <!-- Email Address -->
         <div>
             <x-mary-input wire:model="form.email" label="Email" placeholder="Email Address" icon-right="o-envelope" />
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
             <x-mary-password label="Password" placeholder="Password" wire:model="form.password" right />
-
-            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->

@@ -9,7 +9,6 @@ class RoomForm extends Form
 {
     public $room_number;
     public $room_type_id;
-    public $is_available;
     protected function rules()
     {
         return [

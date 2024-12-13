@@ -97,7 +97,10 @@ class PaymentController extends Controller
                         // Xóa thông tin khỏi session sau khi xử lý
                         session()->forget(["total_price", "selected_type_room", "booking_dates"]);
                     });
-
+                    $payment_data = [
+                        "payment_type" => $inputData["vnp_CardType"],
+                        "bank" => 
+                    ]
                     // Chuyển hướng tới trang thành công
                     return view("PaymentSuccess");
                 } catch (\Exception $e) {

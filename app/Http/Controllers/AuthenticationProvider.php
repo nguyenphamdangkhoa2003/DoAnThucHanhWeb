@@ -43,12 +43,10 @@ class AuthenticationProvider extends Controller
                 "email" => $google_user->getEmail(),
                 "password" => Hash::make("P@ssword123"), // Mật khẩu mặc định
                 "google_id" => $google_user->getId(),
-                "email_verified_at" => now(),
+                "email_verified_at" => \Carbon\Carbon::now(),
             ]);
-
             // Upload avatar lên Cloudinary
             $cloudinary = cloudinary()->upload($google_user->getAvatar());
-
             // Lưu thông tin ảnh vào bảng images
             Image::create([
                 "url" => $cloudinary->getSecurePath(),

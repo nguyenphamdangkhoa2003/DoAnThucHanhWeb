@@ -51,30 +51,29 @@
                                     <div class="w-10 rounded-full">
                                         <img
                                             src="
-                                        {{ Auth::user()->avatar->url }}
+                                        {{ Auth::user()->avatar->url ?? Vite::asset('resources/images/user_default.png') }}
                                         " />
 
                                     </div>
                                 @endisset
                             </div>
-
                         </div>
                         <ul tabindex="0"
-                            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            class="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow">
                             <li>
-                                <a class="justify-between" href="{{ route('profile') }}">
+                                <a class="hover:underline" href="{{ route('profile') }}">
                                     Profile
                                 </a>
                             </li>
                             <li>
-                                <a class="justify-between" href="{{ route('booking-history') }}">
+                                <a class="hover:underline" href="{{ route('booking-history') }}">
                                     Booking history
                                 </a>
                             </li>
                             @if (Auth::user()->role == 'admin')
-                                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                                <li><a class="hover:underline" href="{{ route('dashboard') }}">Dashboard</a></li>
                             @endif
-                            <li><a href="{{ route('logout') }}">Logout</a></li>
+                            <li><a class="hover:underline" href="{{ route('logout') }}">Logout</a></li>
                         </ul>
                     @else
                         <x-mary-button label="Login" link="{{ route('login') }}" class="btn-ghost btn-sm"

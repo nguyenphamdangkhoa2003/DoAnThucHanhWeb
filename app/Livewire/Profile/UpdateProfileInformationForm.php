@@ -2,15 +2,22 @@
 
 namespace App\Livewire\Profile;
 
+use App\Models\Image;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Livewire\Component;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Livewire\WithFileUploads;
 class UpdateProfileInformationForm extends Component
 {
+    use WithFileUploads;
+    public $photo;
     public string $name = '';
+    public string $address = "";
+    public string $phone = "";
     public string $email = '';
 
     /**
@@ -20,6 +27,9 @@ class UpdateProfileInformationForm extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->address = Auth::user()->address ?? "";
+        $this->phone = Auth::user()->phone ?? "";
+        $this->photo = Auth::user()->avatar->url;
     }
 
     /**
@@ -28,14 +38,24 @@ class UpdateProfileInformationForm extends Component
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
-
         $validated = $this->validate([
+            'phone' => ['required', 'string', 'regex:/^(\+?\d{1,4}[-.\s]?|)?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/', 'unique:' . User::class],
+            'address' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'photo' => ['nullable', 'image', 'max:1024']
         ]);
 
         $user->fill($validated);
-
+        $image = $user->avatar;
+        Cloudinary::destroy($image->public_image_id);
+        Image::destroy($image->id);
+        $cloundinary = cloudinary()->upload($this->photo->getRealPath());
+        Image::create([
+            "url" => $cloundinary->getSecurePath(),
+            "public_image_id" => $cloundinary->getPublicId(),
+            "user_id" => $user->id,
+        ]);
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
