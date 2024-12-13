@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Admin;
 
 use App\Models\Booking;
+use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
 use Arr;
@@ -10,6 +11,7 @@ use Date;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Route;
 class Dashboard extends Component
 {
     public array $rooms_chart = [];
@@ -94,8 +96,14 @@ class Dashboard extends Component
         Arr::set($this->rooms_chart, 'type', $type);
     }
     #[Layout('components.layouts.admin')]
+
+
     public function render()
     {
-        return view('livewire.pages.admin.dashboard');
+        $userCount = User::count();
+        $bookingCount = Booking::count();
+        $totalPaymentCount = Payment::sum('amount');
+        $roomCount = Room::count();
+        return view('livewire.pages.admin.dashboard', compact('userCount', 'bookingCount', 'totalPaymentCount', 'roomCount'));
     }
 }
