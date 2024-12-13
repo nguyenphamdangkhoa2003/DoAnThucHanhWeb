@@ -57,7 +57,7 @@
                             </div>
                             <div class="flex justify-between gap-5">
                                 <button class="btn bg-black text-white shadow hover:bg-primary">Tải hoá đơn pdf</button>
-                                <button class="btn bg-black text-white shadow hover:bg-primary">Đánh giá và phản hồi</button>
+                                <!-- <button class="btn bg-black text-white shadow hover:bg-primary">Đánh giá và phản hồi</button> -->
                             </div>
                         </div>
                     </div>
