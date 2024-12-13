@@ -11,12 +11,15 @@ use Date;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Route;
 class Dashboard extends Component
 {
+    use WithPagination;
     public array $rooms_chart = [];
     public array $revent_chart = [];
     public array $user_chart = [];
+
     public function mount(
     ) {
         $date = Carbon::parse(now());
@@ -101,9 +104,10 @@ class Dashboard extends Component
     public function render()
     {
         $userCount = User::count();
+        $users = User::paginate(5);
         $bookingCount = Booking::count();
         $totalPaymentCount = Payment::sum('amount');
         $roomCount = Room::count();
-        return view('livewire.pages.admin.dashboard', compact('userCount', 'bookingCount', 'totalPaymentCount', 'roomCount'));
+        return view('livewire.pages.admin.dashboard', compact('userCount', 'bookingCount', 'totalPaymentCount', 'roomCount', 'users'));
     }
 }
