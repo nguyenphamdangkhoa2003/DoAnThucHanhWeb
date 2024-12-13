@@ -18,6 +18,7 @@ use App\Livewire\Pages\Admin\ListPolicy;
 use App\Livewire\Pages\Admin\ListRoom;
 use App\Livewire\Pages\Admin\ListTypeRoom;
 use App\Livewire\Pages\Admin\ListUser;
+use App\Livewire\Pages\Admin\RoomBookingTimes;
 use App\Livewire\Pages\Admin\UpdatePolicy;
 use App\Livewire\Pages\Admin\UpdateRoom;
 use App\Livewire\Pages\Admin\UpdateRoomType;
@@ -81,4 +82,5 @@ Route::middleware(["auth", IsAdminMiddleware::class])->group(function () {
     Volt::route("admin/add-policy", AddPolicy::class)->name("add-policy");
     Volt::route("admin/update-policy/{id}", UpdatePolicy::class)->name("update-policy");
     Volt::route("/admin/detail-booking/{id}", DetailBooking::class)->name("detail-booking");
+    Volt::route("admin/room-booking-times/{id}", RoomBookingTimes::class)->name("room-booking-times");
 });

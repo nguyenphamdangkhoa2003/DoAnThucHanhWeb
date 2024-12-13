@@ -7,6 +7,7 @@ use App\Models\BookingDetail;
 use App\Models\Payment;
 use App\Models\RoomType;
 use Auth;
+use DB;
 class PaymentController extends Controller
 {
     public function vnpay_payment()
@@ -35,47 +36,71 @@ class PaymentController extends Controller
         $secureHash = hash_hmac('sha512', $hashData, "IQLL0IAY2R93XA22VBHYP3PJTO8WJI37");
         if ($secureHash == $vnp_SecureHash) {
             if ($_GET['vnp_ResponseCode'] == '00') {
-                $booking_info = Booking::create([
-                    "cus_name" => Auth::user()->name,
-                    "cus_email" => Auth::user()->email,
-                    "cus_phone" => Auth::user()->phone,
-                    "cus_address" => Auth::user()->address,
-                    "total_price" => session()->get("total_price"),
-                    "user_id" => Auth::user()->id,
-                    "status" => "pending",
-                ]);
-                $payment = Payment::create([
-                    "payment_type" => $inputData["vnp_CardType"],
-                    "amount" => session()->get("total_price"),
-                    "payment_date" => \DateTime::createFromFormat('YmdHis', $inputData["vnp_PayDate"])->format('Y-m-d'),
-                    "booking_id" => $booking_info->id,
-                ]);
-                $selected_type_room = session()->get("selected_type_room");
-                foreach ($selected_type_room as $key => $value) {
-                    $room_Type = RoomType::find($value["room_type"]["id"]);
-                    $firstRoom = $room_Type->rooms()->first(); // Lấy phòng đầu tiên của loại phòng
+                DB::transaction(function () use ($inputData) {
+                    // Lấy thông tin booking dates từ session
                     $booking_dates = session()->get("booking_dates");
-                    if ($firstRoom) { // Kiểm tra nếu có phòng
-                        BookingDetail::create([
-                            "quantity" => $value["count"],
-                            "booking_id" => $booking_info->id,
-                            "room_type_id" => $room_Type->id,
-                            "room_id" => $firstRoom->id, // Thêm room_id nếu cần
-                            "check_in" => $booking_dates["start_date"],
-                            "check_out" => $booking_dates["end_date"],
 
-                        ]);
+                    // Tạo booking
+                    $booking_info = Booking::create([
+                        "cus_name" => Auth::user()->name,
+                        "cus_email" => Auth::user()->email,
+                        "cus_phone" => Auth::user()->phone,
+                        "cus_address" => Auth::user()->address,
+                        "total_price" => session()->get("total_price"),
+                        "user_id" => Auth::user()->id,
+                        "status" => "pending",
+                    ]);
+
+                    // Tạo payment
+                    Payment::create([
+                        "payment_type" => $inputData["vnp_CardType"],
+                        "amount" => session()->get("total_price"),
+                        "payment_date" => \DateTime::createFromFormat('YmdHis', $inputData["vnp_PayDate"])->format('Y-m-d'),
+                        "booking_id" => $booking_info->id,
+                    ]);
+
+                    // Lấy danh sách loại phòng được chọn
+                    $selected_type_room = session()->get("selected_type_room");
+
+                    foreach ($selected_type_room as $key => $value) {
+                        $room_Type = RoomType::find($value["room_type"]["id"]);
+
+                        // Lấy danh sách phòng của loại phòng
+                        $rooms = $room_Type->rooms()->get();
+                        $firstRoom = null;
+
+                        // Tìm phòng trống
+                        foreach ($rooms as $room) {
+                            if ($room->is_available($booking_dates["start_date"], $booking_dates["end_date"])) {
+                                $firstRoom = $room;
+                                break; // Ngừng tìm kiếm khi tìm thấy phòng
+                            }
+                        }
+
+                        // Tạo chi tiết booking nếu có phòng trống
+                        if ($firstRoom) {
+                            BookingDetail::create([
+                                "quantity" => $value["count"],
+                                "booking_id" => $booking_info->id,
+                                "room_type_id" => $room_Type->id,
+                                "room_id" => $firstRoom->id,
+                                "check_in" => $booking_dates["start_date"],
+                                "check_out" => $booking_dates["end_date"],
+                            ]);
+                        }
                     }
-                }
 
+                    // Xóa thông tin khỏi session sau khi xử lý
+                    session()->forget(["total_price", "selected_type_room", "booking_dates"]);
+                });
+
+                // Chuyển hướng tới trang thành công
                 return view("PaymentSuccess");
             } else {
-                echo "GD Khong thanh cong";
+                echo "GD Không thành công";
             }
         } else {
-            echo "Chu ky khong hop le";
+            echo "Chữ ký không hợp lệ";
         }
-
-
     }
 }

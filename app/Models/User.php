@@ -58,4 +58,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Image::class);
     }
+
+    public static function countUsersRegisteredByMonth($month, $year)
+    {
+        return User::whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->count();
+    }
 }

@@ -16,7 +16,7 @@ class Booking extends Model
         "cus_phone",
         "user_id",
         "cus_address",
-        
+
     ];
 
     public function booking_details(): HasMany
@@ -32,5 +32,11 @@ class Booking extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public static function getMonthlyRevenue($month, $year)
+    {
+        return Booking::whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->sum('total_price');
     }
 }
