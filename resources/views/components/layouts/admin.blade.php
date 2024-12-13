@@ -17,13 +17,13 @@
     <script src="https://cdn.tiny.cloud/1/uld93l9ghco0r3u0fwzfp2flnt2ku1iv9n7qa3i0626ibgi2/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
 
-    {{-- Chart.js  --}}
+    {{-- Chart.js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
-    {{-- Flatpickr  --}}
+    {{-- Flatpickr --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    {{-- MonthSelectPlugin  --}}
+    {{-- MonthSelectPlugin --}}
     <script src="https://unpkg.com/flatpickr/dist/plugins/monthSelect/index.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <link href="https://unpkg.com/flatpickr/dist/plugins/monthSelect/style.css" rel="stylesheet">
@@ -31,7 +31,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
+<body class="min-h-screen font-sans antialiased bg-secondary">
 
     {{-- NAVBAR mobile only --}}
     <x-mary-nav sticky class="lg:hidden">
