@@ -36,10 +36,6 @@ class ListRoom extends Component
             "rooms" => $rooms,
         ]);
     }
-    public function redirectAddRoom()
-    {
-        return $this->redirectRoute("add-room");
-    }
 
     public function delete($id)
     {
@@ -49,10 +45,5 @@ class ListRoom extends Component
         } catch (\Throwable $th) {
             $this->error("Delete fail!");
         }
-    }
-
-    public function redirectUpdateRoom($id)
-    {
-        return $this->redirectRoute("update-room", ["id" => $id]);
     }
 }

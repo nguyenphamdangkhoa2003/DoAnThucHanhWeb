@@ -2,18 +2,22 @@
 
 namespace App\Livewire\Pages\Admin;
 
+use App\Models\Booking;
 use App\Models\Room;
+use App\Models\User;
 use Arr;
 use Date;
+use Illuminate\Support\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 class Dashboard extends Component
 {
     public array $rooms_chart = [];
-    public array $select_revenue = [];
-    public $selected_revenue;
-    public function mount()
-    {
+    public array $revent_chart = [];
+    public array $user_chart = [];
+    public function mount(
+    ) {
+        $date = Carbon::parse(now());
         $rooms = Room::all();
         $count_room_availabel = $rooms->filter(fn($room) => $room->is_available(Date::today(), Date::today()))->count();
         $count_room = $rooms->count();
@@ -27,15 +31,61 @@ class Dashboard extends Component
                         'data' => [$count_room - $count_room_availabel, $count_room_availabel],
                     ]
                 ]
+            ],
+        ];
+
+        $this->revent_chart = [
+            "type" => "line",
+            "data" => [
+                "labels" => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                "datasets" => [
+                    [
+                        "label" => "# of months",
+                        "data" => [
+                            Booking::getMonthlyRevenue("1", $date->year),
+                            Booking::getMonthlyRevenue("2", $date->year),
+                            Booking::getMonthlyRevenue("3", $date->year),
+                            Booking::getMonthlyRevenue("4", $date->year),
+                            Booking::getMonthlyRevenue("5", $date->year),
+                            Booking::getMonthlyRevenue("6", $date->year),
+                            Booking::getMonthlyRevenue("7", $date->year),
+                            Booking::getMonthlyRevenue("8", $date->year),
+                            Booking::getMonthlyRevenue("9", $date->year),
+                            Booking::getMonthlyRevenue("10", $date->year),
+                            Booking::getMonthlyRevenue("11", $date->year),
+                            Booking::getMonthlyRevenue("12", $date->year),
+                        ]
+                    ]
+                ]
             ]
         ];
 
-        $this->select_revenue = [
-            ["id" => 1, "name" => "Day"],
-            ["id" => 2, "name" => "Month"],
-            ["id" => 3, "name" => "Year"]
+        $this->user_chart = [
+            "type" => "bar",
+            "data" => [
+                "labels" => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                "datasets" => [
+                    [
+                        "label" => "# of months",
+                        "data" => [
+                            User::countUsersRegisteredByMonth("1", $date->year),
+                            User::countUsersRegisteredByMonth("2", $date->year),
+                            User::countUsersRegisteredByMonth("3", $date->year),
+                            User::countUsersRegisteredByMonth("4", $date->year),
+                            User::countUsersRegisteredByMonth("5", $date->year),
+                            User::countUsersRegisteredByMonth("6", $date->year),
+                            User::countUsersRegisteredByMonth("7", $date->year),
+                            User::countUsersRegisteredByMonth("8", $date->year),
+                            User::countUsersRegisteredByMonth("9", $date->year),
+                            User::countUsersRegisteredByMonth("10", $date->year),
+                            User::countUsersRegisteredByMonth("11", $date->year),
+                            User::countUsersRegisteredByMonth("12", $date->year),
+                        ]
+                    ]
+                ]
+            ]
         ];
-        $this->selected_revenue = 1;
+
     }
 
     public function switch()

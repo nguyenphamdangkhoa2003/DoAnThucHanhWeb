@@ -33,4 +33,10 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public static function getMonthlyRevenue($month, $year)
+    {
+        return Booking::whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->sum('total_price');
+    }
 }
