@@ -1,8 +1,8 @@
 <div>
     <x-mary-header title="Dashboard" separator />
     <div class="grid grid-cols-4 gap-5">
-        <div>
-            <x-mary-card class="bg-white rounded-none shadow border h-32" separator progress-indicator>
+        <a href="{{route('list-user')}}" class="link no-underline hover:shadow-lg">
+            <x-mary-card class=" bg-white rounded-none shadow border h-32" separator progress-indicator>
                 <div class="flex p-5 gap-3">
                     <x-mary-icon name="s-user" class="w-12 h-12 bg-slate-200 text-blue-300 p-2 rounded-full" />
                     <div>
@@ -15,8 +15,8 @@
                     </div>
                 </div>
             </x-mary-card>
-        </div>
-        <div>
+        </a>
+        <a href="{{route('list-booking')}}" class="link no-underline hover:shadow-lg">
             <x-mary-card class="bg-white rounded-none shadow border h-32" separator progress-indicator>
                 <div class="flex p-5 gap-3">
                     <x-mary-icon name="s-clipboard-document-check"
@@ -31,8 +31,8 @@
                     </div>
                 </div>
             </x-mary-card>
-        </div>
-        <div>
+        </a>
+        <a class="link no-underline hover:shadow-lg">
             <x-mary-card class="bg-white rounded-none shadow border h-32" separator progress-indicator>
                 <div class="flex p-5 gap-3">
                     <x-mary-icon name="s-banknotes" class="w-12 h-12 bg-slate-200 text-orange-500 p-2 rounded-full" />
@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </x-mary-card>
-        </div>
-        <div>
+        </a>
+        <a href="{{route('list-room')}}" class="link no-underline hover:shadow-lg">
             <x-mary-card class="bg-white rounded-none shadow border h-32" separator progress-indicator>
                 <div class="flex p-5 gap-3">
                     <x-mary-icon name="s-home-modern" class="w-12 h-12 bg-slate-200 text-green-500 p-2 rounded-full" />
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </x-mary-card>
-        </div>
+        </a>
     </div>
     <div class="grid grid-cols-4 gap-5">
         <div class="col-span-3">
@@ -78,7 +78,7 @@
             <div class="bg-white shadow my-5 p-5">
                 <div class="flex justify-between w-full items-center">
                     <h3 class="text-2xl font-extrabold">Customer</h3>
-                    <a href="" class="link hover:text-primary text-gray-300 no-underline text-sm">View All</a>
+                    <a href="{{route('list-user')}}" class="link hover:text-primary text-gray-300 no-underline text-sm">View All</a>
                 </div>
                 <hr>
                 <div class="py-2">
