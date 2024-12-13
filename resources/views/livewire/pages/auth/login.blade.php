@@ -49,16 +49,21 @@ new #[Layout('layouts.guest')] class extends Component
             
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-col items-center justify-end mt-4">
+            <x-mary-button label="LOGIN" class="rounded-full w-full text-xl text-white btn-primary" />
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:text-primary" href="{{ route('password.request') }}" wire:navigate>
+                <a class="underline text-sm text-gray-600 text-end w-full dark:text-gray-400  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 hover:text-primary" href="{{ route('password.request') }}" wire:navigate>
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+        </div>
+        <div class="py-3 text-center text-gray-600 text-sm">Or Login With </div>
+        <button class="px-4 py-2 w-full items-center justify-center border flex gap-2 border-slate-200  rounded-lg text-slate-700  hover:border-slate-400  hover:text-slate-900 hover:shadow transition duration-150">
+            <img class="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo">
+            <span>Login with Google</span>
+        </button>
+        <div class=" w-full text-center">
+            <a href="{{route('register')}}" class="py-3 text-sm link link-primary">Register a new account</a>
         </div>
     </form>
 </div>
