@@ -15,10 +15,6 @@ class UpdateRoom extends Component
     use Toast;
     public $id;
     public RoomForm $form;
-    public $available_options = [
-        ["name" => "Available", "id" => "1"],
-        ["name" => "Unvaiable", "id" => "0"]
-    ];
     #[Layout("components.layouts.admin")]
     public function render()
     {
@@ -34,13 +30,15 @@ class UpdateRoom extends Component
     public function save()
     {
         try {
+            $this->form->validate();
             $room = Room::find($this->id);
             $room->room_number = $this->form->room_number;
             $room->room_type_id = $this->form->room_type_id;
             $room->save();
             $this->success("Update room success!");
-        } catch (\Throwable $th) {
-            $this->error("Update room fail!");
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->error($e->getMessage());
+            return $this->redirectRoute("update-room", ["id" => $this->id]);
         }
     }
     public function back()

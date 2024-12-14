@@ -2,9 +2,6 @@
     <x-mary-header title="List message" separator />
     @foreach ($messages as $message)
         <x-mary-list-item :item="$message" link="{{ route('detail-contact-message', ['id' => $message->id]) }}">
-            <x-slot:avatar>
-                <x-mary-avatar placeholder="{{ $message->last_name }}" />
-            </x-slot:avatar>
             <x-slot:value>
                 {{ $message->last_name }}
                 @if ($message->is_readed == 0)

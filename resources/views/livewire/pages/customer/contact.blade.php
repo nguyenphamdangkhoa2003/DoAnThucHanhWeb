@@ -16,6 +16,7 @@
                             <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($contact_page->address) }}"
                                 target="_blank" class="text-orange-400 hover:underline py-4">
                                 {{ $contact_page->address }}
+                            </a>
                         </div>
                         <div class=" border-b py-4">
                             <div>
@@ -57,7 +58,8 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="p-3">
-                                        <x-mary-textarea label="Message" wire:model="form.message" rows="5" inline />
+                                        <x-mary-textarea label="Message" wire:model="form.message" rows="5"
+                                            inline />
                                     </td>
                                 </tr>
                             </table>

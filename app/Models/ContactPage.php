@@ -11,6 +11,7 @@ class ContactPage extends Model
         "address",
         "phone",
         "email",
-        "description"
+        "description",
+        "is_readed"
     ];
 }

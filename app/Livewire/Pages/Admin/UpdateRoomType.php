@@ -22,9 +22,11 @@ class UpdateRoomType extends Component
     #[Validate("required")]
     #[Validate(['photos.*' => 'image|max:1024'])]
     public $photos = [];
+    public $existingImages = [];
     public $id;
     #[Layout("components.layouts.admin")]
-    public function render()
+
+    public function mount()
     {
         $this->id = Route::current()->parameter("id");
         $room_type = RoomType::findOrFail($this->id);
@@ -33,6 +35,13 @@ class UpdateRoomType extends Component
         $this->form->base_price = $room_type->base_price;
         $this->form->children = $room_type->children;
         $this->form->adults = $room_type->adults;
+        $this->photos = $room_type->images;
+
+        $this->existingImages = $room_type->images()->pluck('url')->toArray();
+    }
+    public function render()
+    {
+
         return view('livewire.pages.admin.update-room-type');
     }
 
@@ -40,7 +49,14 @@ class UpdateRoomType extends Component
     {
         return $this->redirectIntended(route("list-type-room"));
     }
-
+    public function updatedPhotos()
+    {
+        // Khi người dùng upload hình ảnh, chỉ hiển thị các file mới
+        $this->existingImages = [];
+        foreach ($this->photos as $photo) {
+            $this->existingImages[] = $photo->temporaryUrl();
+        }
+    }
     public function save()
     {
         try {

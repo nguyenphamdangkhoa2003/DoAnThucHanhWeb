@@ -34,7 +34,7 @@ class UpdatePassword extends Component
             'password' => Hash::make($validated['password']),
         ]);
 
-        $this->reset( 'password', 'password_confirmation');
+        $this->reset('password', 'password_confirmation');
 
         $this->dispatch('password-updated');
     }

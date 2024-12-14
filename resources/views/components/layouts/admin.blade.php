@@ -27,6 +27,10 @@
     <script src="https://unpkg.com/flatpickr/dist/plugins/monthSelect/index.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <link href="https://unpkg.com/flatpickr/dist/plugins/monthSelect/style.css" rel="stylesheet">
+    {{-- PhotoSwipe --}}
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe-lightbox.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -60,8 +64,8 @@
                 @if ($user = auth()->user())
                     <x-mary-menu-separator />
 
-                    <x-mary-list-item :item="$user" value="name" sub-value="email" avatar="avatar.url" no-separator no-hover
-                        class="-mx-2 !-my-2 rounded">
+                    <x-mary-list-item :item="$user" value="name" sub-value="email" avatar="avatar.url"
+                        no-separator no-hover class="-mx-2 !-my-2 rounded">
                         <x-slot:actions>
                             <x-mary-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="logoff"
                                 no-wire-navigate link="{{ route('logout') }}" />

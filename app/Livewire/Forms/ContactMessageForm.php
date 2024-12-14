@@ -11,6 +11,7 @@ class ContactMessageForm extends Form
     public $email;
     public $phone;
     public $message;
+    public $is_readed = false;
 
     /**
      * Validation rules for the form.

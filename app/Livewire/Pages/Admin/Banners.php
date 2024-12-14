@@ -48,7 +48,7 @@ class Banners extends Component
                 session()->flash('error', 'Failed to upload image: ' . $e->getMessage());
             }
         }
-        $this->photos = [];
+        $this->reset(["photos"]);
     }
 
 

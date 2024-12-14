@@ -11,9 +11,6 @@ class BookingForm extends Form
     public $cus_email;
     public $cus_phone;
     public $total_price;
-    public $user_id;
-    public $room_type_id;
-    public $payment_id;
     public $cus_address;
 
     protected function rules(): array
@@ -23,9 +20,6 @@ class BookingForm extends Form
             'cus_email' => ['required', 'email', 'max:255'],
             'cus_phone' => ['required', 'regex:/^\+?[0-9]{10,15}$/'],
             'total_price' => ['required', 'numeric', 'min:0'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
-            'room_type_id' => ['required', 'integer', 'exists:room_types,id'],
-            'payment_id' => ['required', 'integer', 'exists:payments,id'],
             'cus_address' => ['required', 'string', 'max:500'],
         ];
     }

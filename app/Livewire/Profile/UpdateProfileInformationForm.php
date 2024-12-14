@@ -39,11 +39,11 @@ class UpdateProfileInformationForm extends Component
     {
         $user = Auth::user();
         $validated = $this->validate([
-            'phone' => ['required', 'string', 'regex:/^(\+?\d{1,4}[-.\s]?|)?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/', 'unique:' . User::class],
+            'phone' => ['required', 'string', 'regex:/^(\+?\d{1,4}[-.\s]?|)?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/', Rule::unique(User::class)->ignore($user->id)],
             'address' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-            'photo' => ['nullable', 'image', 'max:1024']
+            'photo' => ['nullable', 'max:1024']
         ]);
 
         $user->fill($validated);

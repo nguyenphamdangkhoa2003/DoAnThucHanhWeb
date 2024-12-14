@@ -18,7 +18,6 @@ class BookingInfo extends Component
     public $selected_type_room = [];
     public $roomCount = [];
     public BookingForm $form;
-    public PaymentForm $paymentForm;
     public $content;
     public function render()
     {
@@ -39,8 +38,12 @@ class BookingInfo extends Component
     }
     public function confirmInfoUser()
     {
-        $this->form->validate();
-        $this->next();
+        try {
+            $this->form->validate();
+            $this->next();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+           
+        }
     }
     public function next()
     {

@@ -1,4 +1,4 @@
-<div class="drawer-content w-full mx-auto p-5 lg:px-10 lg:py-5 lg:max-w-4xl">
+<div>
     <x-mary-header title="Add room" separator progress-indicator />
     <x-mary-toast />
     <x-mary-form wire:submit="save">
