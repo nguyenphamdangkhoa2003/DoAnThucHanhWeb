@@ -1,12 +1,6 @@
-<?php
 
-use App\Livewire\Actions\Logout;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Volt\Component;
 
-new class extends Component {
 
-}; ?>
 
 <section class="space-y-6">
     <header>
