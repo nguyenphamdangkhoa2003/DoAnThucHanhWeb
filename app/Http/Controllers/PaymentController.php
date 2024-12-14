@@ -63,44 +63,48 @@ class PaymentController extends Controller
                         // Lấy danh sách loại phòng được chọn
                         $selected_type_room = session()->get("selected_type_room");
 
-                        foreach ($selected_type_room as $key => $value) {
+                        foreach ($selected_type_room as $value) {
                             $room_Type = RoomType::find($value["room_type"]["id"]);
 
-                            // Lấy danh sách phòng của loại phòng
-                            $rooms = $room_Type->rooms()->get();
-                            $firstRoom = null;
+                            // Lấy danh sách phòng trống của loại phòng
+                            $available_rooms = $room_Type->rooms()->get()->filter(function ($room) use ($booking_dates) {
+                                return $room->is_available($booking_dates["start_date"], $booking_dates["end_date"]);
+                            });
 
-                            // Tìm phòng trống
-                            foreach ($rooms as $room) {
-                                if ($room->is_available($booking_dates["start_date"], $booking_dates["end_date"])) {
-                                    $firstRoom = $room;
-                                    break; // Ngừng tìm kiếm khi tìm thấy phòng
-                                }
+                            // Kiểm tra nếu số lượng phòng trống không đủ
+                            if ($available_rooms->count() < $value["count"]) {
+                                throw new \Exception("Không đủ phòng trống cho loại phòng ID: {$room_Type->id}");
                             }
 
-                            // Nếu không tìm thấy phòng, ném ngoại lệ để rollback
-                            if (!$firstRoom) {
-                                throw new \Exception("Không tìm thấy phòng trống cho loại phòng ID: {$room_Type->id}");
+                            // Tạo chi tiết booking cho từng phòng
+                            $selected_rooms = $available_rooms->take($value["count"]);
+                            foreach ($selected_rooms as $room) {
+                                BookingDetail::create([
+                                    "quantity" => 1, // Mỗi phòng chỉ đếm 1 lần đặt
+                                    "booking_id" => $booking_info->id,
+                                    "room_id" => $room->id,
+                                    "check_in" => $booking_dates["start_date"],
+                                    "check_out" => $booking_dates["end_date"],
+                                ]);
                             }
-
-                            // Tạo chi tiết booking
-                            BookingDetail::create([
-                                "quantity" => $value["count"],
-                                "booking_id" => $booking_info->id,
-                                "room_type_id" => $room_Type->id,
-                                "room_id" => $firstRoom->id,
-                                "check_in" => $booking_dates["start_date"],
-                                "check_out" => $booking_dates["end_date"],
-                            ]);
                         }
+
+                        // Chuẩn bị dữ liệu thanh toán
+                        $payment_data = [
+                            "payment_type" => $inputData["vnp_CardType"],
+                            "bank_code" => $inputData["vnp_BankCode"],
+                            "phone" => Auth::user()->phone,
+                            "email" => Auth::user()->email,
+                            "amount" => session()->get("total_price"),
+                            "transaction_no" => $inputData["vnp_TransactionNo"],
+                        ];
+                        session()->put("payment_data", $payment_data);
 
                         // Xóa thông tin khỏi session sau khi xử lý
                         session()->forget(["total_price", "selected_type_room", "booking_dates"]);
                     });
-                    $payment_data = [
-                        "payment_type" => $inputData["vnp_CardType"],
-                        "bank" => 
-                    ]
+
+
                     // Chuyển hướng tới trang thành công
                     return view("PaymentSuccess");
                 } catch (\Exception $e) {

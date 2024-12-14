@@ -39,6 +39,7 @@ class BookingInfo extends Component
     }
     public function confirmInfoUser()
     {
+        $this->form->validate();
         $this->next();
     }
     public function next()

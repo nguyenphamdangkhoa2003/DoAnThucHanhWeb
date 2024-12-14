@@ -29,7 +29,7 @@ class UpdateProfileInformationForm extends Component
         $this->email = Auth::user()->email;
         $this->address = Auth::user()->address ?? "";
         $this->phone = Auth::user()->phone ?? "";
-        $this->photo = Auth::user()->avatar->url;
+        $this->photo = Auth::user()->avatar->url ?? "";
     }
 
     /**
@@ -48,14 +48,16 @@ class UpdateProfileInformationForm extends Component
 
         $user->fill($validated);
         $image = $user->avatar;
-        Cloudinary::destroy($image->public_image_id);
-        Image::destroy($image->id);
-        $cloundinary = cloudinary()->upload($this->photo->getRealPath());
-        Image::create([
-            "url" => $cloundinary->getSecurePath(),
-            "public_image_id" => $cloundinary->getPublicId(),
-            "user_id" => $user->id,
-        ]);
+        if (isset($image)) {
+            Cloudinary::destroy($image->public_image_id);
+            Image::destroy($image->id);
+            $cloundinary = cloudinary()->upload($this->photo->getRealPath());
+            Image::create([
+                "url" => $cloundinary->getSecurePath(),
+                "public_image_id" => $cloundinary->getPublicId(),
+                "user_id" => $user->id,
+            ]);
+        }
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }

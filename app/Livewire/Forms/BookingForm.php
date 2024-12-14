@@ -26,7 +26,7 @@ class BookingForm extends Form
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'room_type_id' => ['required', 'integer', 'exists:room_types,id'],
             'payment_id' => ['required', 'integer', 'exists:payments,id'],
-            'cus_address' => ['nullable', 'string', 'max:500'],
+            'cus_address' => ['required', 'string', 'max:500'],
         ];
     }
 

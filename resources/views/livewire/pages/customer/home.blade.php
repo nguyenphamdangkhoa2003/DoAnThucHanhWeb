@@ -70,6 +70,7 @@
                                                     <div class="card-actions justify-end">
                                                         <x-mary-form wire:submit="selected({{ $type_room->id }})">
                                                             <x-mary-input type="number" min="1"
+                                                                max="{{ $room_available }}"
                                                                 wire:model.defer="roomCount.{{ $type_room->id }}" />
                                                             <x-slot:actions>
                                                                 <p class="text-xl font-semibold">

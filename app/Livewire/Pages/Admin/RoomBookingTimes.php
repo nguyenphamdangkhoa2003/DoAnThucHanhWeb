@@ -25,7 +25,6 @@ class RoomBookingTimes extends Component
                     "end" => $booking_detail->check_out,
                 ];
             }
-
         }
         return view('livewire.pages.admin.room-booking-times');
     }

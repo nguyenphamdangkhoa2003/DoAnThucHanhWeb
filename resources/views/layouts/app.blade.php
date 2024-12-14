@@ -47,15 +47,12 @@
                         <div class="flex items-center gap-5">
                             <span class="text-sm">{{ Auth::user()->name }}</span>
                             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                @isset(Auth::user()->avatar)
-                                    <div class="w-10 rounded-full">
-                                        <img
-                                            src="
-                                        {{ Auth::user()->avatar->url ?? Vite::asset('resources/images/user_default.png') }}
-                                        " />
-
-                                    </div>
-                                @endisset
+                                <div class="w-10 rounded-full">
+                                    <img
+                                        src="
+                                    {{ Auth::user()->avatar->url ?? Vite::asset('resources/images/user_default.png') }}
+                                    " />
+                                </div>
                             </div>
                         </div>
                         <ul tabindex="0"

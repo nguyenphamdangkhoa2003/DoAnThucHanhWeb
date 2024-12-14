@@ -59,8 +59,8 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <x-mary-button class="btn-primary"
-                    spinner="updateProfileInformation">{{ __('Save') }}</x-mary-button>
+                <x-mary-button class="btn-primary" spinner="updateProfileInformation"
+                    type="submit">{{ __('Save') }}</x-mary-button>
 
                 <x-action-message class="me-3" on="profile-updated">
                     {{ __('Saved.') }}
@@ -70,7 +70,7 @@
         <div class="flex-1 flex justify-center items-center flex-col">
             <x-mary-file wire:model="photo" accept="image/png, image/jpeg">
                 <img src="{{ Auth::user()->avatar->url ?? Vite::asset('resources/images/user_default.png') }}"
-                    class="h-40 rounded-lg" />
+                    class="h-40 rounded-lg" accept="image/*" />
             </x-mary-file>
             <p class="text-center">Avatar</p>
         </div>

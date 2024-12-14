@@ -22,6 +22,7 @@ class Home extends Component
     public $adults;
     public $start_date;
     public $end_date;
+    public $type_rooms;
     public function mount()
     {
         $this->children = 0;
@@ -31,11 +32,8 @@ class Home extends Component
     }
     public function render()
     {
-        return view('livewire.pages.customer.home', [
-            "type_rooms" => RoomType::where('adults', ">=", $this->adults)
-                ->where('children', ">=", $this->children)
-                ->get()
-        ]);
+        $this->type_rooms = RoomType::all();
+        return view('livewire.pages.customer.home', );
     }
     public function formatCustomDate($date)
     {
@@ -135,12 +133,18 @@ class Home extends Component
     }
     public function updated($key)
     {
-        $this->validate();
+        // Kiểm tra nếu tất cả các trường dữ liệu đã hợp lệ
+        $validatedData = $this->validate([
+            'children' => 'required|integer|min:0',
+            'adults' => 'required|integer|min:1',
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
+        ]);
+        // Nếu validate thành công, thực hiện render dữ liệu
+        if ($validatedData) {
+            $this->type_rooms = RoomType::where('adults', ">=", $this->adults)
+                ->where('children', ">=", $this->children)
+                ->get();
+        }
     }
-    protected $rules = [
-        'children' => 'required|integer|min:0',
-        'adults' => 'required|integer|min:1',
-        'start_date' => 'required|date|before:end_date',
-        'end_date' => 'required|date|after:start_date',
-    ];
 }
