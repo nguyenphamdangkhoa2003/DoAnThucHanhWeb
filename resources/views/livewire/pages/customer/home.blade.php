@@ -52,7 +52,7 @@
                                     <div class="grid grid-cols-5 h-full">
                                         <div class="col-span-2 h-full flex">
                                             <div class="w-full h-full">
-                                                <x-mary-carousel class="rounded-none rounded-lt-xl" :slides="$slides"
+                                                <x-mary-carousel class="rounded-none rounded-tl-xl" :slides="$slides"
                                                     without-indicators />
                                             </div>
                                         </div>
