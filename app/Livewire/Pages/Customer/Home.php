@@ -22,25 +22,26 @@ class Home extends Component
     public $adults;
     public $start_date;
     public $end_date;
+    public $type_rooms;
     public function mount()
     {
-
         $this->children = 0;
         $this->adults = 1;
         $this->start_date = Date::now()->toDateString(); // Định dạng: YYYY-MM-DD
         $this->end_date = Date::now()->addDay()->toDateString();
 
-        $type_rooms = RoomType::all();
-        foreach ($type_rooms as $key => $type_room) {
+        $this->type_rooms = RoomType::all();
+        foreach ($this->type_rooms as $key => $type_room) {
             $this->roomCount[$type_room->id] = 1;
         }
     }
     public function render()
     {
-        $this->type_rooms = RoomType::whereRaw('(adults + children) >= ?', [$this->adults + $this->children]) // Tổng sức chứa >= tổng số người yêu cầu
-            ->where('adults', '>=', $this->adults) // Phòng phải đáp ứng tối thiểu số người lớn
-            ->get();
-        // Lấy danh sách loại phòng phù hợp
+        if (is_numeric($this->adults) && is_numeric($this->children))
+            // Lấy danh sách loại phòng phù hợp
+            $this->type_rooms = RoomType::whereRaw('(adults + children) >= ?', [$this->adults + $this->children]) // Tổng sức chứa >= tổng số người yêu cầu
+                ->where('adults', '>=', $this->adults) // Phòng phải đáp ứng tối thiểu số người lớn
+                ->get();
         return view('livewire.pages.customer.home', [
             'type_rooms' => $this->type_rooms,
         ]);
