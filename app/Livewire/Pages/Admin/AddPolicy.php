@@ -22,6 +22,6 @@ class AddPolicy extends Component
         $this->form->validate();
         Policy::create($this->form->pull());
         $this->success("Create policy successfully");
-        return $this->redirectIntended(route("list-policy"));
+        return $this->redirectRoute("list-policy");
     }
 }

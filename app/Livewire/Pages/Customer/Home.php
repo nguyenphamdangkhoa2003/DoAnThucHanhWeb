@@ -25,10 +25,17 @@ class Home extends Component
     public $type_rooms;
     public function mount()
     {
+
         $this->children = 0;
         $this->adults = 1;
         $this->start_date = Date::now()->toDateString(); // Định dạng: YYYY-MM-DD
         $this->end_date = Date::now()->addDay(1)->toDateString();
+
+        $type_rooms = RoomType::all();
+        foreach ($type_rooms as $key => $type_room) {
+            $this->roomCount[$type_room->id] = 1;
+        }
+
     }
     public function render()
     {

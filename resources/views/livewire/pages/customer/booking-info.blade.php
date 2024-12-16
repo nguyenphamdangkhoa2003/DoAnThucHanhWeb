@@ -48,7 +48,10 @@
             @endforeach
             <div class="flex justify-end mt-3 gap-3">
                 <x-mary-button label="Cancel" wire:click="prev" spinner="prev" />
-                <x-mary-button label="Continue" class="btn-primary" type="submit" spinner="next" wire:click="next" />
+                <x-mary-button label="Continue" class="btn-primary" type="submit" spinner="next" wire:click="next"
+                    :disabled="!count($selected_type_room)">
+                </x-mary-button>
+
             </div>
         </x-mary-step>
         <x-mary-step step="3" text="Payment">

@@ -35,6 +35,6 @@ class AddRoom extends Component
 
     public function back()
     {
-        return $this->redirectIntended(route("list-room"));
+        return $this->redirectRoute("list-room");
     }
 }

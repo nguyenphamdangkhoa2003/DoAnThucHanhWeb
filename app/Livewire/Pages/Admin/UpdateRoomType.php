@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\RoomType;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -24,10 +25,12 @@ class UpdateRoomType extends Component
     public $photos = [];
     public $existingImages = [];
     public $id;
+    public $flag;
     #[Layout("components.layouts.admin")]
 
     public function mount()
     {
+        $this->flag = false;
         $this->id = Route::current()->parameter("id");
         $room_type = RoomType::findOrFail($this->id);
         $this->form->room_type_name = $room_type->room_type_name;
@@ -47,11 +50,12 @@ class UpdateRoomType extends Component
 
     public function back()
     {
-        return $this->redirectIntended(route("list-type-room"));
+        return $this->redirectRoute("list-type-room");
     }
     public function updatedPhotos()
     {
-        // Khi người dùng upload hình ảnh, chỉ hiển thị các file mới
+        $this->flag = true;
+        // Khi ngÆ°á»i dÃ¹ng upload hÃ¬nh áº£nh, chá»‰ hiá»ƒn thá»‹ cÃ¡c file má»›i
         $this->existingImages = [];
         foreach ($this->photos as $photo) {
             $this->existingImages[] = $photo->temporaryUrl();
@@ -59,29 +63,26 @@ class UpdateRoomType extends Component
     }
     public function save()
     {
-        try {
-            $this->form->validate();
-            $room_type = RoomType::findOrFail($this->id);
-            $room_type->update($this->form->pull());
+        $this->form->validate();
+        $room_type = RoomType::findOrFail($this->id);
+        $room_type->update($this->form->pull());
+        if ($this->flag) {
+            $this->validate();
             $images = $room_type->images;
-            if (count($this->photos) > 0) {
-                foreach ($images as $key => $value) {
-                    Cloudinary::destroy($value->public_image_id);
-                    Image::destroy($value->id);
-                }
-                foreach ($this->photos as $photo) {
-                    $cloundinary = cloudinary()->upload($photo->getRealPath());
-                    Image::create([
-                        "url" => $cloundinary->getSecurePath(),
-                        "public_image_id" => $cloundinary->getPublicId(),
-                        "room_type_id" => $room_type->id,
-                    ]);
-                }
+            foreach ($images as $key => $value) {
+                Cloudinary::destroy($value->public_image_id);
+                Image::destroy($value->id);
             }
-            $this->success("Update type room success!");
-            return $this->redirectIntended(route("list-type-room"));
-        } catch (\Throwable $th) {
-            $this->error("Update room type fail");
+            foreach ($this->photos as $photo) {
+                $cloundinary = cloudinary()->upload($photo->getRealPath());
+                Image::create([
+                    "url" => $cloundinary->getSecurePath(),
+                    "public_image_id" => $cloundinary->getPublicId(),
+                    "room_type_id" => $room_type->id,
+                ]);
+            }
         }
+        $this->success("Update type room success!");
+        return $this->redirectRoute("list-type-room");
     }
 }

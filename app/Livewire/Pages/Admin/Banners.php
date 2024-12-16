@@ -31,7 +31,7 @@ class Banners extends Component
 
     public function save()
     {
-        $about_page = AboutPage::firstOrCreate(["content" => ""]);
+        $about_page = AboutPage::firstOrCreate(["id" => "1"]);
         $this->banner = Banner::firstOrCreate([
             "about_page_id" => $about_page->id
         ]);
@@ -60,6 +60,10 @@ class Banners extends Component
     }
     public function delete($id)
     {
-        Image::destroy($id);
+        try {
+            Image::destroy($id);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

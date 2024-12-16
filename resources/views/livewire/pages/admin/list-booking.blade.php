@@ -3,9 +3,6 @@
         <x-slot:middle class="!justify-end">
             <x-mary-input icon="o-bolt" placeholder="Search..." wire:model.live="search" />
         </x-slot:middle>
-        <x-slot:actions>
-            <x-mary-button icon="o-plus" class="btn-primary" wire:click="redirectAddRoom" />
-        </x-slot:actions>
     </x-mary-header>
     {{-- TOAST --}}
     <x-mary-toast class="w-full!" />

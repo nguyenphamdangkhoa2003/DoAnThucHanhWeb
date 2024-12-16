@@ -16,7 +16,7 @@
                     {{ $message->created_at }}
                 </p>
                 <x-mary-button icon="o-trash" class="text-red-500" wire:click="delete({{ $message->id }})" spinner
-                    wire:confirm="Are you sure?\n\nType DELETE to confirm|DELETE" />
+                    wire:confirm.prompt="Are you sure?\n\nType DELETE to confirm|DELETE" wire:key="{{ $message->id }}" />
             </x-slot:actions>
         </x-mary-list-item>
     @endforeach

@@ -29,7 +29,6 @@ class UpdateProfileInformationForm extends Component
         $this->email = Auth::user()->email;
         $this->address = Auth::user()->address ?? "";
         $this->phone = Auth::user()->phone ?? "";
-        $this->photo = Auth::user()->avatar->url ?? "";
     }
 
     /**
@@ -45,12 +44,19 @@ class UpdateProfileInformationForm extends Component
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'photo' => ['nullable', 'max:1024']
         ]);
-
         $user->fill($validated);
         $image = $user->avatar;
-        if (isset($image)) {
+
+        if (isset($image) && isset($this->photo)) {
             Cloudinary::destroy($image->public_image_id);
             Image::destroy($image->id);
+            $cloundinary = cloudinary()->upload($this->photo->getRealPath());
+            Image::create([
+                "url" => $cloundinary->getSecurePath(),
+                "public_image_id" => $cloundinary->getPublicId(),
+                "user_id" => $user->id,
+            ]);
+        } elseif (!isset($image) && isset($this->photo)) {
             $cloundinary = cloudinary()->upload($this->photo->getRealPath());
             Image::create([
                 "url" => $cloundinary->getSecurePath(),
@@ -75,7 +81,7 @@ class UpdateProfileInformationForm extends Component
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+            $this->redirectIntended();
 
             return;
         }

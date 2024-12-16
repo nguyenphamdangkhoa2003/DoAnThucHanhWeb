@@ -42,12 +42,12 @@ class AddRoomType extends Component
             ]);
         }
         $this->success("Create type room success!");
-        return $this->redirectIntended("list-type-room");
+        return $this->redirectRoute("list-type-room");
     }
 
     public function back()
     {
-        return $this->redirectIntended("list-type-room");
+        return $this->redirectRoute("list-type-room");
     }
 
 }

@@ -13,7 +13,7 @@ class ListPolicy extends Component
         $headers = [
             ['key' => 'id', 'label' => '#'],
             ['key' => 'policy_type', 'label' => 'Type'],
-            ['key' => 'action', 'label' => 'Action'] # <---- nested attributes
+            ['key' => 'action', 'label' => 'Action', 'sortable' => false] # <---- nested attributes
         ];
         $policies = Policy::all();
         return view('livewire.pages.admin.list-policy', [
@@ -30,5 +30,14 @@ class ListPolicy extends Component
     public function redirectUpdatePolicy($id)
     {
         return $this->redirectRoute("update-policy", ["id" => $id]);
+    }
+
+    public function delete($id)
+    {
+        try {
+            Policy::destroy($id);
+        } catch (\Throwable $th) {
+
+        }
     }
 }

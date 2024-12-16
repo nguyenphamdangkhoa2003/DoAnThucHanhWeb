@@ -38,12 +38,8 @@ class BookingInfo extends Component
     }
     public function confirmInfoUser()
     {
-        try {
-            $this->form->validate();
-            $this->next();
-        } catch (\Illuminate\Validation\ValidationException $e) {
-           
-        }
+        $this->form->validate();
+        $this->next();
     }
     public function next()
     {
