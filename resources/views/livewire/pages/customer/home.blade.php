@@ -67,7 +67,7 @@
                                                                                 );
                                                                             @endphp
                                                                         </p>
-                                                            <p class="text-sm text-gray-400">{{ $type_room->description }}</p>
+                                                            <p class="text-sm text-gray-400 truncate max-w-sm">{{ $type_room->description }}</p>
                                                             <div class="flex flex-col justify-between">
                                                                     <div class="flex">
                                                                         <x-mary-icon name="o-user" class="me-3" />
