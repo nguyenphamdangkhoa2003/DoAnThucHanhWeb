@@ -13,29 +13,29 @@
         <form wire:submit="updateProfileInformation" class="mt-6 space-y-6 flex-1 max-w-xl">
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-                <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full"
-                    required autofocus autocomplete="name" />
+                <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required
+                    autofocus autocomplete="name" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
-
+            <div>
+                <x-input-label for="name" :value="__('Phone')" />
+                <x-text-input wire:model="phone" id="phone" name="phone" type="text" class="mt-1 block w-full" required
+                    autofocus autocomplete="phone" />
+                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+            </div>
             <div>
                 <x-input-label for="name" :value="__('Address')" />
-                <x-text-input wire:model="address" id="address" name="address" type="text"
-                    class="mt-1 block w-full" required autofocus autocomplete="address" />
+                <x-text-input wire:model="address" id="address" name="address" type="text" class="mt-1 block w-full"
+                    required autofocus autocomplete="address" />
                 <x-input-error class="mt-2" :messages="$errors->get('address')" />
             </div>
 
-            <div>
-                <x-input-label for="name" :value="__('Phone')" />
-                <x-text-input wire:model="phone" id="phone" name="phone" type="text" class="mt-1 block w-full"
-                    required autofocus autocomplete="phone" />
-                <x-input-error class="mt-2" :messages="$errors->get('phone')" />
-            </div>
+
 
             <div>
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full"
-                    required autocomplete="username" />
+                <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full" required
+                    autocomplete="username" />
                 <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
                 @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())

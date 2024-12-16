@@ -30,90 +30,86 @@
                         <!-- Product grid -->
                         <div class="lg:col-span-4">
                             <x-mary-progress class="progress-primary h-0.5" indeterminate wire:loading />
-                            <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-5">
                                 @if (isset($type_rooms))
-                                @foreach ($type_rooms as $type_room)
-                                <div class="rounded-xl bg-base-100 shadow-xl w-full">
-                                    @php
-                                        $slides = [];
-                                        $room_available = $type_room->count_room_available(
-                                            $start_date,
-                                            $end_date,
-                                        );
-                                        if (isset($type_room->images)) {
-                                            foreach ($type_room->images as $image) {
-                                                $slides[] = [
-                                                    'image' => $image->url,
-                                                ];
-                                            }
-                                        }
-                                    @endphp
-                                    @if ($room_available)
-                                    <div class="grid grid-cols-5 h-full">
-                                        <div class="col-span-2 h-full flex">
-                                            <div class="w-full h-full">
-                                                <x-mary-carousel class="rounded-none rounded-tl-xl" :slides="$slides"
-                                                    without-indicators />
-                                            </div>
-                                        </div>
-                                        <div class="col-span-3 h-full flex flex-col justify-between">
-                                            <div class="md:flex flex-col gap-3">
-                                                <div class="card-body h-full p-4">
-                                                    <h2 class="card-title">{{ $type_room->room_type_name }}</h2>
-                                                    <div>{{ $type_room->description }}</div>
-                                                    <div class="flex flex-col">
-                                                        <div class="flex">
-                                                            <x-mary-icon name="o-user" class="me-3" />
-                                                            @php
-                                                            echo $type_room->children + $type_room->adults;
-                                                            @endphp Guest
-                                                        </div>
-                                                        <div class="flex text-green-600 font-semibold">
-                                                            {{ $room_available }}
-                                                            avalilable
+                                    @foreach ($type_rooms as $type_room)
+                                        <div class="rounded-xl bg-base-100 shadow-xl w-full">
+                                            @php
+                                                $slides = [];
+                                                $room_available = $type_room->count_room_available(
+                                                    $start_date,
+                                                    $end_date,
+                                                );
+                                                if (isset($type_room->images)) {
+                                                    foreach ($type_room->images as $image) {
+                                                        $slides[] = [
+                                                            'image' => $image->url,
+                                                        ];
+                                                    }
+                                                }
+                                            @endphp
+                                            @if ($room_available)
+                                                <div class="card card-side bg-base-100 shadow-xl grid grid-cols-5 items-stretch">
+                                                    <div class="col-span-2">
+                                                        <figure class="h-full">
+                                                            <x-mary-carousel class="rounded-none rounded-tl-xl rounded-bl-xl h-full w-full" :slides="$slides"
+                                                                without-indicators />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-span-3">
+                                                        <div class="card-body p-5 h-full">
+                                                            <h2 class="card-title">{{ $type_room->room_type_name }}</h2>
+                                                            <p class="text-primary font-medium py-0 my-0">
+                                                                            VND
+                                                                            @php
+                                                                                echo $this->formatCurrencyVND(
+                                                                                    $type_room->base_price,
+                                                                                );
+                                                                            @endphp
+                                                                        </p>
+                                                            <p class="text-sm text-gray-400">{{ $type_room->description }}</p>
+                                                            <div class="flex flex-col justify-between">
+                                                                    <div class="flex">
+                                                                        <x-mary-icon name="o-user" class="me-3" />
+                                                                        @php
+                                                                        echo $type_room->children + $type_room->adults;
+                                                                        @endphp Guest
+                                                                    </div>
+                                                                    <div class="flex text-green-600 font-semibold">
+                                                                        {{ $room_available }}
+                                                                        avalilable
+                                                                    </div>
+                                                            </div>
+                                                            <div class="card-actions justify-end w-full">
+                                                                <x-mary-form class="!gap-0 w-full"
+                                                                    wire:submit="selected({{ $type_room->id }})">
+                                                                   
+                                                                    <x-slot:actions>
+                                                                
+                                                                        <div class="flex items-center gap-2 justify-end">
+                                                                        <label class="font-semibold text-sm">Amount</label>
+                                                                        <x-mary-input class="pl-1 py-0" type="number" min="1"
+                                                                            max="{{ $room_available }}"
+                                                                            wire:model.defer="roomCount.{{ $type_room->id }}" />
+                                                                    </div>
+                                                                        @if (!collect($this->selected_type_room)->contains(fn($item) => $item['room_type']['id'] == $type_room->id))
+                                                                            <x-mary-button class="btn btn-primary" type="submit" spinner>
+                                                                                SELECT</x-mary-button>
+                                                                        @else
+                                                                            <div
+                                                                                class="bg-green-200 text-green-700 w-fit p-1 rounded shadow-sm">
+                                                                                You selected
+                                                                            </div>
+                                                                        @endif
+                                                                    </x-slot:actions>
+                                                                </x-mary-form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif  
                                         </div>
-                                        <div class="col-span-5">
-                                            <div
-                                                class="p-3 border-t border-dashed border-gray-300 justify-center items-center min-w-full">
-                                                <x-mary-form class="!gap-0"
-                                                    wire:submit="selected({{ $type_room->id }})">
-                                                    <div class="flex items-center gap-2 justify-end">
-                                                        <label class="font-semibold text-sm">Amount</label>
-                                                        <x-mary-input class="pl-1 py-0" type="number" min="1"
-                                                            max="{{ $room_available }}"
-                                                            wire:model.defer="roomCount.{{ $type_room->id }}" />
-                                                    </div>
-                                                    <x-slot:actions>
-                                                        <p class="text-xl font-semibold">
-                                                            VND
-                                                            @php
-                                                                echo $this->formatCurrencyVND(
-                                                                    $type_room->base_price,
-                                                                );
-                                                            @endphp
-                                                        </p>
-                                                        @if (!collect($this->selected_type_room)->contains(fn($item) => $item['room_type']['id'] == $type_room->id))
-                                                            <x-mary-button class="btn btn-primary" type="submit" spinner>
-                                                                SELECT</x-mary-button>
-                                                        @else
-                                                            <div
-                                                                class="bg-green-200 text-green-700 w-fit p-1 rounded shadow-sm">
-                                                                You selected
-                                                            </div>
-                                                        @endif
-                                                    </x-slot:actions>
-                                                </x-mary-form>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    @endif
-                                </div>
-                                @endforeach
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
