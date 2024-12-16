@@ -14,6 +14,7 @@ class BookingDetail extends Model
         "check_in",
         "check_out",
         "quantity",
+        "base_price",
     ];
 
     public function booking(): BelongsTo

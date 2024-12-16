@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string("room_type_name");
             $table->string("description")->nullable();
             $table->double("base_price");
-            $table->integer("children");
+            $table->integer("children")->default(0);
             $table->integer("adults");
             $table->timestamps();
         });

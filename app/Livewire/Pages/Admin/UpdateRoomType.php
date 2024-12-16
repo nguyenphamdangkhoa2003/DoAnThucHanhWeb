@@ -36,7 +36,7 @@ class UpdateRoomType extends Component
         $this->form->room_type_name = $room_type->room_type_name;
         $this->form->description = $room_type->description;
         $this->form->base_price = $room_type->base_price;
-        $this->form->children = $room_type->children;
+        $this->form->children = $room_type->children ?? 0;
         $this->form->adults = $room_type->adults;
         $this->photos = $room_type->images;
 

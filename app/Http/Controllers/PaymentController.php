@@ -83,6 +83,7 @@ class PaymentController extends Controller
                                     "quantity" => 1, // Mỗi phòng chỉ đếm 1 lần đặt
                                     "booking_id" => $booking_info->id,
                                     "room_id" => $room->id,
+                                    "base_price" => $room_Type->base_price,
                                     "check_in" => $booking_dates["start_date"],
                                     "check_out" => $booking_dates["end_date"],
                                 ]);

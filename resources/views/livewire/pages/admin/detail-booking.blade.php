@@ -25,18 +25,18 @@
         <x-mary-header title="List type room" />
         @foreach ($booking_details as $item)
             @php
-                $room_type = App\Models\RoomType::find($item->room_type_id);
+                $room = App\Models\Room::find($item->room_id);
             @endphp
-            <x-mary-list-item :item="$room_type">
+            <x-mary-list-item :item="$room">
                 <x-slot:value>
-                    Room Type Name: {{ $room_type->room_type_name }}
+                    Room Number: {{ $room->room_number }}
                 </x-slot:value>
                 <x-slot:sub-value>
                     <div>
-                        Description {{ $room_type->description }}
+                        Room type: {{ $room->room_type->room_type_name }}
                     </div>
                     <div>
-                        Price: {{ $room_type->base_price }}
+                        Price: {{ $room->room_type->base_price }}
                     </div>
                 </x-slot:sub-value>
                 <x-slot:actions>
@@ -47,9 +47,6 @@
             </x-mary-list-item>
         @endforeach
         <div class="mt-3 text-xl font-bold">
-            @php
-                $booking = App\Models\Booking::find($booking_details[0]->booking_id);
-            @endphp
             Total: {{ $booking->total_price }}
         </div>
     </div>

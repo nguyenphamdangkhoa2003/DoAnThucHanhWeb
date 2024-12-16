@@ -16,7 +16,6 @@ class BookingInfo extends Component
 {
     public int $step = 1;
     public $selected_type_room = [];
-    public $roomCount = [];
     public BookingForm $form;
     public $content;
     public function render()
@@ -33,8 +32,11 @@ class BookingInfo extends Component
     }
     public function deleteTypeRoomSelected($key)
     {
+        $total_price = $this->selected_type_room[$key]["total_price"];
         unset($this->selected_type_room[$key]);
         session()->put("selected_type_room", $this->selected_type_room);
+        $old_total_price = session()->get("total_price");
+        session()->put("total_price", $old_total_price - $total_price);
     }
     public function confirmInfoUser()
     {
