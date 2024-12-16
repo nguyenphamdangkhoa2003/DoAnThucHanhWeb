@@ -30,7 +30,7 @@
                         <!-- Product grid -->
                         <div class="lg:col-span-4">
                             <x-mary-progress class="progress-primary h-0.5" indeterminate wire:loading />
-                            <div class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-5">
                                 @if (isset($type_rooms))
                                     @foreach ($type_rooms as $type_room)
                                         <div class="rounded-xl bg-base-100 shadow-xl w-full">
@@ -49,73 +49,69 @@
                                                 }
                                             @endphp
                                             @if ($room_available)
-                                                <div class="grid grid-cols-5 h-full">
-                                                    <div class="col-span-2 h-full flex">
-                                                        <div class="w-full h-full">
-                                                            <x-mary-carousel class="rounded-none rounded-tl-xl"
-                                                                :slides="$slides" without-indicators />
-                                                        </div>
+                                                <div class="card card-side bg-base-100 shadow-xl grid grid-cols-5 items-stretch">
+                                                    <div class="col-span-2">
+                                                        <figure class="h-full">
+                                                            <x-mary-carousel class="rounded-none rounded-tl-xl rounded-bl-xl h-full w-full" :slides="$slides"
+                                                                without-indicators />
+                                                        </figure>
                                                     </div>
-                                                    <div class="col-span-3 h-full flex flex-col justify-between">
-                                                        <div class="md:flex flex-col gap-3">
-                                                            <div class="card-body h-full p-4">
-                                                                <h2 class="card-title">{{ $type_room->room_type_name }}
-                                                                </h2>
-                                                                <div>{{ $type_room->description }}</div>
-                                                                <div class="flex flex-col">
-                                                                    <div class="flex">
-                                                                        <x-mary-icon name="o-user" class="me-3" />
+                                                    <div class="col-span-3">
+                                                        <div class="card-body p-5 h-full">
+                                                            <h2 class="card-title">{{ $type_room->room_type_name }}</h2>
+                                                            <p class="text-primary font-medium py-0 my-0">
+                                                                            VND
+                                                                            @php
+                                                                                echo $this->formatCurrencyVND(
+                                                                                    $type_room->base_price,
+                                                                                );
+                                                                            @endphp
+                                                                        </p>
+                                                            <p class="text-sm text-gray-400 truncate max-w-sm">{{ $type_room->description }}</p>
+                                                            <div class="flex flex-col justify-between">
+                                                                    <div class="flex gap-1 items-center">
+                                                                        <x-mary-icon name="o-user" class="" />
                                                                         @php
-                                                                            echo $type_room->children +
-                                                                                $type_room->adults;
-                                                                        @endphp Guest
+                                                                        echo $type_room->adults;
+                                                                        @endphp  <span  class="pr-1 border-r">Adults</span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#000000" viewBox="0 0 256 256"><path d="M92,140a12,12,0,1,1,12-12A12,12,0,0,1,92,140Zm72-24a12,12,0,1,0,12,12A12,12,0,0,0,164,116Zm-12.27,45.23a45,45,0,0,1-47.46,0,8,8,0,0,0-8.54,13.54,61,61,0,0,0,64.54,0,8,8,0,0,0-8.54-13.54ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88.11,88.11,0,0,0-84.09-87.91C120.32,56.38,120,71.88,120,72a8,8,0,0,0,16,0,8,8,0,0,1,16,0,24,24,0,0,1-48,0c0-.73.13-14.3,8.46-30.63A88,88,0,1,0,216,128Z"></path></svg>
+                                                                        @php
+                                                                        echo $type_room->children;
+                                                                        @endphp Childrens
                                                                     </div>
                                                                     <div class="flex text-green-600 font-semibold">
                                                                         {{ $room_available }}
                                                                         avalilable
                                                                     </div>
-                                                                </div>
+                                                            </div>
+                                                            <div class="card-actions justify-end w-full">
+                                                                <x-mary-form class="!gap-0 w-full"
+                                                                    wire:submit="selected({{ $type_room->id }})">
+                                                                   
+                                                                    <x-slot:actions>
+                                                                
+                                                                        <div class="flex items-center gap-2 justify-end">
+                                                                        <label class="font-semibold text-sm">Amount</label>
+                                                                        <x-mary-input class="pl-1 py-0" type="number" min="1"
+                                                                            max="{{ $room_available }}"
+                                                                            wire:model.defer="roomCount.{{ $type_room->id }}" />
+                                                                    </div>
+                                                                        @if (!collect($this->selected_type_room)->contains(fn($item) => $item['room_type']['id'] == $type_room->id))
+                                                                            <x-mary-button class="btn btn-primary" type="submit" spinner>
+                                                                                SELECT</x-mary-button>
+                                                                        @else
+                                                                            <div
+                                                                                class="bg-green-200 text-green-700 w-fit p-1 rounded shadow-sm">
+                                                                                You selected
+                                                                            </div>
+                                                                        @endif
+                                                                    </x-slot:actions>
+                                                                </x-mary-form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-span-5">
-                                                        <div
-                                                            class="p-3 border-t border-dashed border-gray-300 justify-center items-center min-w-full">
-                                                            <x-mary-form class="!gap-0"
-                                                                wire:submit="selected({{ $type_room->id }})">
-                                                                <div class="flex items-center gap-2 justify-end">
-                                                                    <label class="font-semibold text-sm">Amount</label>
-                                                                    <x-mary-input class="pl-1 py-0" type="number"
-                                                                        min="1" max="{{ $room_available }}"
-                                                                        wire:model.defer="roomCount.{{ $type_room->id }}"
-                                                                        value="1" />
-                                                                </div>
-                                                                <x-slot:actions>
-                                                                    <p class="text-xl font-semibold">
-                                                                        VND
-                                                                        @php
-                                                                            echo $this->formatCurrencyVND(
-                                                                                $type_room->base_price,
-                                                                            );
-                                                                        @endphp
-                                                                    </p>
-                                                                    @if (!collect($this->selected_type_room)->contains(fn($item) => $item['room_type']['id'] == $type_room->id))
-                                                                        <x-mary-button class="btn btn-primary"
-                                                                            type="submit" spinner>
-                                                                            SELECT</x-mary-button>
-                                                                    @else
-                                                                        <div
-                                                                            class="bg-green-200 text-green-700 w-fit p-1 rounded shadow-sm">
-                                                                            You selected
-                                                                        </div>
-                                                                    @endif
-                                                                </x-slot:actions>
-                                                            </x-mary-form>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
-                                            @endif
+                                            @endif  
                                         </div>
                                     @endforeach
                                 @endif
